@@ -10,3 +10,4 @@ dist/
 compiler.py
 gui.spec
 getelec/solutions.py
+git_commands.txt
