@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to GETELEC</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --accent: #0ea5e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1e293b 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #38bdf8, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--secondary);
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid var(--background);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .highlight-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box ul {
+            list-style-type: none;
+        }
+
+        .highlight-box li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .highlight-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Interactive Tabs for Architectural Overview */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            padding-top: 1rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .metric-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafafa;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            margin-top: 1rem;
+        }
+
+        .metric {
+            text-align: center;
+            flex: 1;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>GETELEC</h1>
+            <p>Fully Numerical Thermo-Field Electron Emission Solver</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="grid">
+            <div>
+                <section class="card">
+                    <h2>The Core Philosophy</h2>
+                    <p>
+                        <strong>GETELEC</strong> bridges the historical divide between analytical speed and physical accuracy in electron emission simulations. Designed for emission modeling from both <strong>metals and semiconductors</strong>, it evaluates electron flux across arbitrary surface interfaces.
+                    </p>
+                    <p>
+                        As demands on electron sources increase, the conditions under which they operate change in a manner that causes simple models and early formulations of the canonical equations to require updating and extension. GETELEC eliminates these limitations entirely by adopting a pure <strong>numerical framework</strong> that is as <strong>computationally efficient</strong> as the analytical solutions.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <strong>Why GETELEC stands out:</strong>
+                        <ul>
+                            <li><strong>Analytical Speed, Numerical Power:</strong> Built with optimized vector algorithms that operate at a computational budget comparable to evaluation times of complex analytical expressions.</li>
+                            <li><strong>Uncompromising Robustness:</strong> Bypasses typical truncation, high-field breakdown, and approximations errors native to analytic formulas.</li>
+                            <li><strong>Complete Boundary Freedom:</strong> Accepts any arbitrary potential barrier structure or density of states (DOS) without adjustments to the underlying engines.</li>
+                            <li><strong>AI Boosted:</strong> Integrates a machine‑learning solver that delivers exceptional computational speed, ideal for applications where time is a critical resource.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Architectural Overview</h2>
+                    <p>The code is engineered using a modular, decoupled Object-Oriented design pattern. Click on the components below to explore their interactions:</p>
+                    
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab(event, 'emitter')">Emitter Managers</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'barrier')">Potential Barriers</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'band')">Band Structures</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'supply')">Electron Supplies</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'solver')">Transmission Solvers</button>
+                    </div>
+
+                    <div id="emitter" class="tab-content active">
+                        <p><strong>MetalEmitter &amp; SemiconductorEmitter:</strong> Orchestrate sub-module data pipelines. They implement the different mudules to create emitter object that provide numerical calculations of: Total Energy Distributions (TED), Normal Energy Distributions (NED), Current Density, and Nottingham Heat.</p>
+                    </div>
+                    <div id="barrier" class="tab-content">
+                        <p><strong>SchottkyPotential &amp; CustomPotential:</strong> Set the potential boundaries. Implements the classical image-charge potential and allows for arbitrary profiles like the triangular or resonant barriers.</p>
+                    </div>
+                    <div id="band" class="tab-content">
+                        <p><strong>Metal &amp; SmartMetal &amp; Semiconductor:</strong> Establishes the band structure of the emitter. Sets the characteristics energies that defines a solid and implements smart algorithms to automatically reduce the computational time without compromising the solutions.</p>
+                    </div>
+                    <div id="supply" class="tab-content">
+                        <p><strong>Fermi Dirac &amp; LogFermiDirac:</strong> Manage localized carrier distributions. Implements stable mathematical forms over extreme domains (including absolute zero thresholds T=0 K) and integrates dynamic, external Density of States (DOS) vectors.</p>
+                    </div>
+                    <div id="solver" class="tab-content">
+                        <p><strong>Noumerov &amp; MachineLearning:</strong> Efficiently solves the 1D-TISE. Takes arbitrary potentials and bands and automatically applies highly efficient methods to calculate the tranmission coeffcieent.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div>
+                <section class="card">
+                    <h2>Capabilities</h2>
+                    <div>
+                        <span class="badge">Fully Numerical</span>
+                        <span class="badge">Thermo-Field</span>
+                        <span class="badge">Field Emission</span>
+                        <span class="badge">Electron Emission</span>
+                        <span class="badge">Metal Emission</span>
+                        <span class="badge">Semiconductors Emission</span>
+                        <span class="badge">Nottingham Heat</span>
+                        <span class="badge">Nano-Tips</span>
+                        <span class="badge">Arbitrary DOS</span>
+                        <span class="badge">Arbitrary Potential</span>
+
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Performance Paradigm</h2>
+                    <p>GETELEC eliminates the computational overhead typically associated with raw numerical integrations by implementing a highly optimised version of the Noumerov method to solve the 1D-TISE.</p>
+                    <div class="metric-container">
+                        <div class="metric">
+                            <div class="metric-value">~0.75%</div>
+                            <div class="metric-label">Solution Uncertainty</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">&lt;0.05</div>
+                            <div class="metric-label">Running Time (ms)</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GETELEC Project. Developed for robust electron emission simulations and data analysis.</p>
+    </footer>
+
+    <script>
+        function switchTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GETELEC User & Usage Guide</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --accent: #38bdf8;
+            --code-bg: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            aside {
+                display: none;
+            }
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            background-color: var(--secondary);
+            color: #cbd5e1;
+            padding: 2rem 1.5rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        aside h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: #fff;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        aside h2 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        aside ul {
+            list-style: none;
+        }
+
+        aside li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.4rem 0;
+            transition: color 0.2s;
+        }
+
+        aside li a:hover {
+            color: #fff;
+        }
+
+        /* Main Content Area */
+        main {
+            padding: 3rem 4rem;
+            max-width: 900px;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--secondary);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+        }
+
+        /* Architecture Blocks */
+        .arch-flow {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .arch-node {
+            flex: 1;
+            background: #f1f5f9;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
+            color: var(--secondary);
+        }
+
+        .arch-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-weight: bold;
+        }
+
+        /* File reference alert boxes */
+        .file-box {
+            background-color: #f0fdfa;
+            border-left: 4px solid #0d9488;
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+        }
+
+        .file-box h4 {
+            color: #0f766e;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .file-box p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Code formatting styling */
+        pre {
+            background-color: var(--code-bg);
+            color: #f8f8f2;
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background-color: #e2e8f0;
+            color: #1e293b;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+            font-size: inherit;
+        }
+
+        /* Table configurations */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside>
+            <h1>GETELEC Guide</h1>
+            
+            <h2>Getting Started</h2>
+            <ul>
+                <li><a href="#pipeline">The 4-Block Pipeline</a></li>
+                <li><a href="#params">Parameter Sweeping</a></li>
+            </ul>
+
+            <h2>Packaged Examples</h2>
+            <ul>
+                <li><a href="#example-distributions">1. Energy Distributions</a></li>
+                <li><a href="#example-iv">2. J-F Sweep Configurations</a></li>
+            </ul>
+
+            <h2>Reference</h2>
+            <ul>
+                <li><a href="#aliases">Keyword Parameters</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <h1 class="page-title">Usage &amp; Quick-Start Guide</h1>
+            <p class="subtitle">An introductory reference manual for scripting quantum emission runs inside the GETELEC architecture.</p>
+
+            <section id="pipeline">
+                <h2>The 4-Block Simulation Pipeline</h2>
+                <p>
+                    GETELEC avoids the rigid programmatic constraints of analytical emission formulas by breaking every simulation down into four distinct, independent structural components; allowing the user to tailor the simulation to the system of interest. GETELEC is built in such a way that transmission solver can be applied to arbitry potentials, band structures, and electron supplies. To initialize a calculation loop, you must initiate the instances of these sub-modules together inside a management interface:
+                </p>
+
+                <div class="arch-flow">
+                    <div class="arch-node">Potential Barrier</div>
+                    <!-- <div class="arch-arrow">➔</div> -->
+                    <div class="arch-node">Band Structure</div>
+                    <!-- <div class="arch-arrow">➔</div> -->
+                    <div class="arch-node">Electron Supply</div>
+                    <!-- <div class="arch-arrow">➔</div> -->
+                    <div class="arch-node">Transmission Solver</div>
+
+                </div>
+
+                <p>
+                    Once wrapped inside an executive manager (such as <code>MetalEmitter</code> or <code>SemiconductorEmitter</code>), the data arrays are processed concurrently using efficient matrix vector operations to run electron emission simulations. In a nustshell, the user should build an "Emitter" object (e.g.; MetalEmitter) by adding to it the elements that composes it (e.g.; SchottkyBarrier, SmartMetal, FermiDirac, Noumerov). Then, the Emitter object can be used to make serveral calculations such as the Nottingham Heat.
+                </p>
+
+                <p>
+                    Within the GETELEC directory we have included modellic scripts to show the users how the Emitter objects are built and how they can be used to run simulations or to fit data. In the next section the script to calculate TED and NED is explained for clarity.
+                </p>
+            </section>
+
+            <section id="example">
+                <h2>Show Case Example: Calculating Energy Distributions (TED & NED)</h2>
+                <p>
+                    As an example of GETELEC's implementation to run calculations refer to the following folder inside the main directory.
+                </p>
+
+                <div class="file-box">
+                    <h4>🗀 File Context: examples/calculate_energy_distributions.py</h4>
+                    <p>This script instantiates a basic metallic emitter, extracts multi-variant spectral vectors, and plots comparative outputs simultaneously.</p>
+                </div>
+
+                <p>Review the standard application workflow model highlighted within the example folder:</p>
+                <pre><code>import matplotlib.pyplot as plt
+from getelec.potential_barrier import SchottkyPotential
+from getelec.band_structure import SmartMetal
+from getelec.transmission_solver import Noumerov
+from getelec.electron_supply import FermiDirac, LogFermiDirac
+from getelec.electron_emitter import MetalEmitter
+
+# Initialize execution modules
+my_potential = SchottkyPotential(fermi_level=7.5, work_function=4.5, electric_field=3.0)
+my_band = SmartMetal(barrier_width=3.0, supply_threshold=1e-14, energy_resolution=0.01)
+my_solver = Noumerov(x_metal=-1.0, x_vac_plus=10, h=0.001, max_barrier_width=3)
+my_supply_log = LogFermiDirac(fermi_level=7.5, temperature=300.0)
+my_supply = FermiDirac(fermi_level=7.5, temperature=300.0)
+
+# Build the Emitter object
+emitter = MetalEmitter(my_potential, my_solver, my_supply_log, my_band)
+
+# Interrogate the object to extract the relevant information
+energies, ned = emitter.calculate_normal_energy_distribution()
+
+# Dynamically re-assign alternative distribution states (don't build another object!)
+emitter.supply = my_supply
+
+# Re-interrogate the object to extract the new relevant information
+_, ted = emitter.calculate_total_energy_distribution()</code></pre>
+            </section>
+
+            <section id="params">
+                <h2>Dynamic Parameter Broadcasters</h2>
+                <p>
+                    Rather than forcing full model object reconstruction loops during large-scale operational sweeps, the parent emitter managers expose an explicit parameter broadcasting function: <code>update_params(**kwargs)</code>. 
+                </p>
+                <p>
+                    Passing configuration keys directly down into the wrapper translates simplified variable naming descriptors, updates properties seamlessly inside lower-tier objects, and forces the framework to flush outdated array caches out of system memory automatically.
+                </p>
+            </section>
+<!-- 
+            <section id="example-iv">
+                <h2>2. Generating Current Curves (Fowler-Nordheim Frameworks)</h2>
+                <p>
+                    Evaluating macroscopic current densities across variant stress ranges is critical for evaluating operational fields, field extraction coefficients, or identifying device performance limits.
+                </p>
+
+                <div class="file-box">
+                    <h4>🗀 File Context: examples/calculate_iv_curve.py</h4>
+                    <p>This routine iterates systematically through a custom array of field coordinates to compute dynamic scalar current responses, outputting standard linear log results along with traditional Fowler-Nordheim coordinate systems ($\ln(J/F^2)$ vs. $1/F$).</p>
+                </div>
+
+                <p>The programmatic looping sequence maps as follows:</p>
+                <pre><code>import numpy as np
+from getelec.potential_barrier import SchottkyPotential
+from getelec.band_structure import SmartMetal
+from getelec.transmission_solver import Noumerov
+from getelec.electron_supply import LogFermiDirac
+from getelec.electron_emitter import MetalEmitter
+
+fields = np.arange(3.0, 7.5, 0.5)
+current_density = np.zeros_like(fields)
+
+# Establish fixed baseline system instances
+my_band = SmartMetal(barrier_width=3.0, supply_threshold=1e-14, energy_resolution=0.01)
+my_solver = Noumerov(x_metal=-1.0, x_vac_plus=10, h=0.001, max_barrier_width=3)
+
+for i, f in enumerate(fields):
+    # Dynamically build specific barriers per iteration
+    my_potential = SchottkyPotential(fermi_level=7.5, work_function=4.5, electric_field=f)
+    my_supply = LogFermiDirac(fermi_level=7.5, temperature=300.0)
+    
+    emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
+    current_density[i] = emitter.calculate_current_density()</code></pre>
+            </section>
+
+            <section id="aliases">
+                <h2>Keyword Alias Mappings</h2>
+                <p>The following mapping reference outlines recognized parameter shorthand definitions available when leveraging the <code>update_params()</code> broadcasting functions:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameter Key</th>
+                            <th>Accepted Shorthand Alias</th>
+                            <th>Default System Units</th>
+                            <th>Target Component Sub-Module</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>electric_field</code></td>
+                            <td><code>'field'</code></td>
+                            <td>$\text{V/nm}$</td>
+                            <td>Potential Barrier Profiles</td>
+                        </tr>
+                        <tr>
+                            <td><code>temperature</code></td>
+                            <td><code>'temp'</code></td>
+                            <td>$\text{K}$</td>
+                            <td>Electron Supply Functions</td>
+                        </tr>
+                        <tr>
+                            <td><code>work_function</code></td>
+                            <td><code>'wf'</code></td>
+                            <td>$\text{eV}$</td>
+                            <td>Potential / Band Structures</td>
+                        </tr>
+                        <tr>
+                            <td><code>fermi_level</code></td>
+                            <td><code>'fermi'</code></td>
+                            <td>$\text{eV}$</td>
+                            <td>Potential / Supply Frameworks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <footer>
+                <p>&copy; 2026 GETELEC Engineering Handbook. Distributed under robust numerical simulation runtime rules.</p>
+            </footer>
+        </main>
+    </div>
+
+</body>
+</html> -->
