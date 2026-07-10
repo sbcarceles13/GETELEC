@@ -19,7 +19,7 @@ If you use this code, please cite these papers.
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
-G
+
 ---
 
 ## Installation & Setup
