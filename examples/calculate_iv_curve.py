@@ -16,7 +16,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+if '__file__' in locals():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+else:
+    current_dir = os.getcwd()
+
+project_root = os.path.abspath(os.path.join(current_dir, '..'))
+
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 from getelec.potential_barrier import SchottkyPotential
 from getelec.band_structure import SmartMetal
 from getelec.transmission_solver import Noumerov
@@ -61,20 +69,20 @@ def main():
     # 2. Setup emitter components
     my_band = SmartMetal(barrier_width=3.0, supply_threshold=1e-14, energy_resolution=0.01)
     my_solver = Noumerov(x_metal=-1.0, x_vac_plus=10, h=0.001, max_barrier_width=3)
+    my_potential = SchottkyPotential(fermi_level=FERMI_LEVEL, work_function=WORK_FUNCTION, electric_field=electric_field[0])
+    my_supply = LogFermiDirac(fermi_level=FERMI_LEVEL, temperature=TEMPERATURE)
+    
+    # 3. Build emitter for J
+    emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
 
     print("Running simulations...")
     for i, f in enumerate(electric_field):
 
-        # 3. Build emitter for J
-        my_potential = SchottkyPotential(fermi_level=FERMI_LEVEL, work_function=WORK_FUNCTION, electric_field=f)
-        my_supply = LogFermiDirac(fermi_level=FERMI_LEVEL, temperature=TEMPERATURE)
-
-        emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
-
+        # 6. Update params and calculate J
+        emitter.update_params(field=f)
         current_density[i] = emitter.calculate_current_density()
 
-
-    # 4. Plot the results
+    # 5. Plot the results
     print("Plotting distributions...")
     fig, axes = plt.subplots(1, 2, figsize=(16, 6))
 

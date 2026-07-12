@@ -432,10 +432,10 @@ class FitTab(QWidget):
             QMessageBox.warning(self, "Error", "No data loaded")
             return
 
-        model = self.fit_menu.currentText()
+        mode = self.fit_menu.currentText()
 
         try:
-            if model == "I-V":
+            if mode == "I-V":
                 mask = self.last_y > 0
                 V_data = self.last_x[mask]
                 I_data = self.last_y[mask]
@@ -474,7 +474,7 @@ class FitTab(QWidget):
 
                 popt, pcov = curve_fit(model, V, I, p0=initial_guess, bounds=bounds,maxfev=1000000)
 
-                legend = f"Fitted param: gamma = {popt[0]:.6f} 1/nm, radius = {1/(5*popt[0]):.2f} nm, area = {popt[1]*1E14:.2f} nm2, ef = {popt[2]:.2f} eV, phi = {popt[3]:.2f} eV, T = {popt[4]:.2f} K"
+                legend = f"Fit param: gamma = {popt[0]:.6f} 1/nm, radius = {1/(5*popt[0]):.2f} nm, area = {popt[1]*1E14:.2f} nm2, ef = {popt[2]:.2f} eV, phi = {popt[3]:.2f} eV, T = {popt[4]:.2f} K"
                 x_label = "Voltage (V)"
                 y_label = "Current (nA)"
 
@@ -487,21 +487,18 @@ class FitTab(QWidget):
 
                 my_band = SmartMetal(barrier_width=3.0, supply_threshold=1e-14, energy_resolution=0.01)
                 my_solver = Noumerov(x_metal=-1.0, x_vac_plus=10, h=0.001, max_barrier_width=3)
+                my_potential = SchottkyPotential(fermi_level=FERMI_LEVEL, work_function=WORK_FUNCTION, electric_field=electric_field)    
+                my_supply = FermiDirac(fermi_level=FERMI_LEVEL, temperature=TEMPERATURE)
+                emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
 
                 for i, f in enumerate(electric_field):
-
-                    my_potential = SchottkyPotential(fermi_level=FERMI_LEVEL, work_function=WORK_FUNCTION, electric_field=f)
-                    
-                    my_supply = FermiDirac(fermi_level=FERMI_LEVEL, temperature=TEMPERATURE)
-
-                    emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
-
+                    emitter.update_params(field=f)
                     current_density[i] = emitter.calculate_current_density()
 
                 y_fit = current_density * popt[1] * 1E9
                 y_data = I
 
-            elif model == "I-T":
+            elif mode == "I-T":
                 mask = self.last_y > 0
                 T_data = self.last_x[mask]
                 I_data = self.last_y[mask]
@@ -539,7 +536,7 @@ class FitTab(QWidget):
 
                 popt, pcov = curve_fit(model, T, I, p0=initial_guess, bounds=bounds,maxfev=1000000)
 
-                legend = f"Fitted param: gamma = {popt[0]:.6f} 1/nm, radius = {1/(5*popt[0]):.2f} nm, area = {popt[1]*1E14:.2f} nm2, ef = {popt[2]:.2f} eV, phi = {popt[3]:.2f} eV, F = {popt[4]:.2f} V/nm"
+                legend = f"Fit param: gamma = {popt[0]:.6f} 1/nm, radius = {1/(5*popt[0]):.2f} nm, area = {popt[1]*1E14:.2f} nm2, ef = {popt[2]:.2f} eV, phi = {popt[3]:.2f} eV, F = {popt[4]:.2f} V/nm"
                 x_label = "Temperature (T)"
                 y_label = "Current (nA)"
 
@@ -565,7 +562,7 @@ class FitTab(QWidget):
                 y_fit = current_density * popt[1] * 1E9
                 y_data = I
 
-            elif model == "TED":
+            elif mode == "TED":
                 energy_data = self.last_x + 90
                 counts_data = self.last_y
 
@@ -590,7 +587,7 @@ class FitTab(QWidget):
 
                 popt, pcov = curve_fit(model, energy_data, norm_counts, p0=initial_guess, bounds=bounds,maxfev=1000000)
 
-                legend = f"Fitted param: F = {popt[0]:.2f} V/nm, E_F = {popt[1]:.2f} eV, PHI = {popt[2]:.2f} eV, T = {popt[3]:.2f} K"
+                legend = f"Fit param: F = {popt[0]:.2f} V/nm, ef = {popt[1]:.2f} eV, phi = {popt[2]:.2f} eV, T = {popt[3]:.2f} K"
                 x_label = "Energy (eV)"
                 y_label = "Electron count (a.u)"
 
@@ -599,7 +596,7 @@ class FitTab(QWidget):
                 y_data = norm_counts
                 y_fit = y_fit/max(y_fit)
 
-            elif model == "NED":
+            elif mode == "NED":
                 energy_data = self.last_x + 90
                 counts_data = self.last_y
 
@@ -624,7 +621,7 @@ class FitTab(QWidget):
 
                 popt, pcov = curve_fit(model, energy_data, norm_counts, p0=initial_guess, bounds=bounds,maxfev=1000000)
 
-                legend = f"Fitted param: F = {popt[0]:.2f} V/nm, E_F = {popt[1]:.2f} eV, PHI = {popt[2]:.2f} eV, T = {popt[3]:.2f} K"
+                legend = f"Fit param: F = {popt[0]:.2f} V/nm, ef = {popt[1]:.2f} eV,\n phi = {popt[2]:.2f} eV, T = {popt[3]:.2f} K"
                 x_label = "Energy (eV)"
                 y_label = "Electron count (a.u)"
 
@@ -647,7 +644,7 @@ class FitTab(QWidget):
         ax.set_yscale(self.yscale_menu.currentText())
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
-        ax.set_title(f"{model} Fit")
+        ax.set_title(f"{mode} Fit")
         ax.legend()
         self.main.canvas.draw()
 

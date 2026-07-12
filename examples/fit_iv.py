@@ -24,7 +24,7 @@ watermark_text = "by GETELEC"
 def main():
     print("Loading I-V Data...")
     # 1. Load the data
-    path = r"C:\Users\salvador.barranco-ca\GitLab SBCarceles\gt3\examples\iv.txt"
+    path = r".\examples\iv.txt"
     data = np.loadtxt(path)
     V_data = data[:,0]
     I_data = data[:,1]

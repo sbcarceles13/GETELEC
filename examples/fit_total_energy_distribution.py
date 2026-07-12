@@ -3,7 +3,15 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+if '__file__' in locals():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+else:
+    current_dir = os.getcwd()
+
+project_root = os.path.abspath(os.path.join(current_dir, '..'))
+
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 from getelec.potential_barrier import SchottkyPotential
 from getelec.transmission_solver import Noumerov
 from getelec.electron_supply import FermiDirac
@@ -14,7 +22,7 @@ watermark_text = "by GETELEC"
 def main():
     print("Loading TED Data...")
     # 1. Load the data
-    path = r"C:\Users\salvador.barranco-ca\GitLab SBCarceles\gt3\examples\ted.txt"
+    path = r".\examples\ted.txt"
     data = np.loadtxt(path)
     energy = data[:,0]
     energy_exp = energy + 90
