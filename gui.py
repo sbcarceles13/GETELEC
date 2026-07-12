@@ -44,7 +44,7 @@ class CalculateTab(QWidget):
         self.main = main_window
 
         self.func_menu = QComboBox()
-        self.func_menu.addItems(["IF", "IT", "TED", "NED"])
+        self.func_menu.addItems(["I-F", "I-T", "TED", "NED"])
         self.func_menu.currentTextChanged.connect(self.update_parameter_fields)
 
         self.xmin_box = QLineEdit()
@@ -122,7 +122,7 @@ class CalculateTab(QWidget):
         self.paramC.hide()
         self.paramD.hide()
 
-        if func == "IF":
+        if func == "I-F":
             self.paramA.show()
             self.paramB.show()
             self.paramD.show()
@@ -130,7 +130,7 @@ class CalculateTab(QWidget):
             self.xmax_box.setPlaceholderText("F_max (V/nm)")
             self.dx_box.setPlaceholderText("delta_F (V/nm)")
 
-        elif func == "IT":
+        elif func == "I-T":
             self.paramA.show()
             self.paramB.show()
             self.paramC.show()
@@ -173,7 +173,7 @@ class CalculateTab(QWidget):
         func = self.func_menu.currentText()
 
         try:
-            if func == "IF":
+            if func == "I-F":
                 A = float(self.paramA.text())
                 B = float(self.paramB.text())
                 D = float(self.paramD.text())
@@ -194,7 +194,7 @@ class CalculateTab(QWidget):
                 x_label = "Field (V/nm)"
                 y_label = "Current Density (A/cm2)"
 
-            elif func == "IT":
+            elif func == "I-T":
                 A = float(self.paramA.text())
                 B = float(self.paramB.text())
                 C = float(self.paramC.text())
@@ -323,7 +323,7 @@ class DocumentationTab(QWidget):
                Anthony Ayari</p>
             <p><b>Version:</b> 3.0.0</p>
             <p><b>Contact:</b>
-            <a href="mailto:s.barranco.carceles@gmail.com">s.barranco.carceles@gmail.com</a>
+            <a>s [dot] barranco [dot] carceles [at] gmail [dot] com</a>
             </p>
             <hr>
             <p><b>Documentation:</b></p>
@@ -366,7 +366,7 @@ class FitTab(QWidget):
         self.file_path = None
 
         self.fit_menu = QComboBox()
-        self.fit_menu.addItems(["exp", "log", "sin"])
+        self.fit_menu.addItems(["I-V", "I-T", "TED", "NED"])
 
         self.xscale_menu = QComboBox()
         self.yscale_menu = QComboBox()
@@ -408,8 +408,10 @@ class FitTab(QWidget):
 
     def load_file(self, path):
         try:
-            if path.endswith(".csv") or path.endswith(".txt"):
+            if path.endswith(".csv"):
                 df = pd.read_csv(path, header=None)
+            elif path.endswith(".txt"):
+                df = pd.read_csv(path, header=None, delim_whitespace=True)
             elif path.endswith(".xlsx") or path.endswith(".xls"):
                 df = pd.read_excel(path, header=None)
             else:
@@ -423,7 +425,7 @@ class FitTab(QWidget):
             self.file_path = path
 
         except Exception as e:
-            raise e
+            print("Error loading file:", e)
 
     def run_fit(self):
         if self.last_x is None:
@@ -433,41 +435,203 @@ class FitTab(QWidget):
         model = self.fit_menu.currentText()
 
         try:
-            if model == "exp":
+            if model == "I-V":
                 mask = self.last_y > 0
-                x = self.last_x[mask]
-                y = self.last_y[mask]
+                V_data = self.last_x[mask]
+                I_data = self.last_y[mask]
 
-                coeffs = np.polyfit(x, np.log(y), 1)
-                B = coeffs[0]
-                A = np.exp(coeffs[1])
-                C = 1.0
+                mask = I_data > 0
 
-                y_fit = A * np.exp(B * self.last_x)
-                legend = f"exp fit: A={A:.3g}, B={B:.3g}, C={C:.3g}"
+                V = V_data[mask]
+                I = np.log(I_data[mask])
 
-            elif model == "log":
-                mask = self.last_x > 0
-                x = self.last_x[mask]
-                y = self.last_y[mask]
+                my_potential = SchottkyPotential()
+                my_band = SmartMetal()
+                my_solver = Noumerov()
+                my_supply = FermiDirac()
 
-                coeffs = np.polyfit(np.log(x), y, 1)
-                B = coeffs[0]
-                A = coeffs[1]
+                emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
 
-                y_fit = A + B * np.log(self.last_x)
-                legend = f"log fit: A={A:.3g}, B={B:.3g}"
+                initial_guess = [0.01, 1E-18, 9.5, 4.5, 300] # gamma, emission_area, fermi_level, work_function, temperature
+                bounds = ([0.001, 1E-20, 7, 3.5, 200], [0.01, 1E-10, 13, 5.5, 700])
 
-            elif model == "sin":
-                def sin_model(x, A, B, C):
-                    return A * np.sin(B * x + C)
+                def model(V_array, gamma, area, ef, wf, temp):
 
-                p0 = [1, 1, 0]
-                params, _ = curve_fit(sin_model, self.last_x, self.last_y, p0=p0)
-                A, B, C = params
+                    results = np.zeros_like(V_array)
 
-                y_fit = A * np.sin(B * self.last_x + C)
-                legend = f"sin fit: A={A:.3g}, B={B:.3g}, C={C:.3g}"
+                    for i, v in enumerate(V_array):
+                        f = v * gamma
+
+                        emitter.update_params(field=f, work_function=wf, fermi=ef, temp=temp)
+                    
+                        j = emitter.calculate_current_density()
+
+                        results[i] = j * area * 1E9
+
+                    results = np.clip(results,1E-100, None)
+
+                    return np.log(results)
+
+                popt, pcov = curve_fit(model, V, I, p0=initial_guess, bounds=bounds,maxfev=1000000)
+
+                legend = f"Fitted param: gamma = {popt[0]:.6f} 1/nm, radius = {1/(5*popt[0]):.2f} nm, area = {popt[1]*1E14:.2f} nm2, ef = {popt[2]:.2f} eV, phi = {popt[3]:.2f} eV, T = {popt[4]:.2f} K"
+                x_label = "Voltage (V)"
+                y_label = "Current (nA)"
+
+                FERMI_LEVEL = popt[2]
+                WORK_FUNCTION = popt[3]
+                TEMPERATURE = popt[4]
+
+                electric_field = V * popt[0]
+                current_density = np.zeros_like(electric_field)
+
+                my_band = SmartMetal(barrier_width=3.0, supply_threshold=1e-14, energy_resolution=0.01)
+                my_solver = Noumerov(x_metal=-1.0, x_vac_plus=10, h=0.001, max_barrier_width=3)
+
+                for i, f in enumerate(electric_field):
+
+                    my_potential = SchottkyPotential(fermi_level=FERMI_LEVEL, work_function=WORK_FUNCTION, electric_field=f)
+                    
+                    my_supply = FermiDirac(fermi_level=FERMI_LEVEL, temperature=TEMPERATURE)
+
+                    emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
+
+                    current_density[i] = emitter.calculate_current_density()
+
+                y_fit = current_density * popt[1] * 1E9
+                y_data = I
+
+            elif model == "I-T":
+                mask = self.last_y > 0
+                T_data = self.last_x[mask]
+                I_data = self.last_y[mask]
+
+                mask = I_data > 0
+
+                T = T_data[mask]
+                I = np.log(I_data[mask])
+
+                my_potential = SchottkyPotential()
+                my_band = SmartMetal()
+                my_solver = Noumerov()
+                my_supply = FermiDirac()
+
+                emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
+
+                initial_guess = [0.01, 1E-18, 9.5, 4.5, 5] # gamma, emission_area, fermi_level, work_function, field
+                bounds = ([0.001, 1E-20, 7, 3.5, 0.01], [0.01, 1E-10, 13, 5.5, 9])
+
+                def model(T_array, gamma, area, ef, wf, field):
+
+                    results = np.zeros_like(T_array)
+
+                    for i, temp in enumerate(T_array):
+
+                        emitter.update_params(field=field, work_function=wf, fermi=ef, temp=temp)
+                    
+                        j = emitter.calculate_current_density()
+
+                        results[i] = j * area * 1E9
+
+                    results = np.clip(results,1E-100, None)
+
+                    return np.log(results)
+
+                popt, pcov = curve_fit(model, T, I, p0=initial_guess, bounds=bounds,maxfev=1000000)
+
+                legend = f"Fitted param: gamma = {popt[0]:.6f} 1/nm, radius = {1/(5*popt[0]):.2f} nm, area = {popt[1]*1E14:.2f} nm2, ef = {popt[2]:.2f} eV, phi = {popt[3]:.2f} eV, F = {popt[4]:.2f} V/nm"
+                x_label = "Temperature (T)"
+                y_label = "Current (nA)"
+
+                FERMI_LEVEL = popt[2]
+                WORK_FUNCTION = popt[3]
+                FIELD = popt[4]
+
+                current_density = np.zeros_like(T)
+
+                my_band = SmartMetal(barrier_width=3.0, supply_threshold=1e-14, energy_resolution=0.01)
+                my_solver = Noumerov(x_metal=-1.0, x_vac_plus=10, h=0.001, max_barrier_width=3)
+
+                for i, temp in enumerate(T):
+
+                    my_potential = SchottkyPotential(fermi_level=FERMI_LEVEL, work_function=WORK_FUNCTION, electric_field=FIELD)
+                    
+                    my_supply = FermiDirac(fermi_level=FERMI_LEVEL, temperature=temp)
+
+                    emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
+
+                    current_density[i] = emitter.calculate_current_density()
+
+                y_fit = current_density * popt[1] * 1E9
+                y_data = I
+
+            elif model == "TED":
+                energy_data = self.last_x + 90
+                counts_data = self.last_y
+
+                my_potential = SchottkyPotential()
+                my_band = CustomMetal(energy_data)
+                my_solver = Noumerov()
+                my_supply = FermiDirac()
+
+                emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
+
+                initial_guess = [4, 90, 4.5, 300]   # field, fermi_level, work_function, temperature
+                bounds = ([1, 89.9, 3, 100], [10, 90.1, 6, 2000])
+                norm_counts = counts_data/max(counts_data)
+
+                def model(x_energies, f,fl, wf, temp):
+            
+                    emitter.update_params(field=f, work_function=wf, fermi=fl, temp=temp)
+                    
+                    _, ted = emitter.calculate_total_energy_distribution()
+
+                    return ted/max(ted)
+
+                popt, pcov = curve_fit(model, energy_data, norm_counts, p0=initial_guess, bounds=bounds,maxfev=1000000)
+
+                legend = f"Fitted param: F = {popt[0]:.2f} V/nm, E_F = {popt[1]:.2f} eV, PHI = {popt[2]:.2f} eV, T = {popt[3]:.2f} K"
+                x_label = "Energy (eV)"
+                y_label = "Electron count (a.u)"
+
+                emitter.update_params(field=popt[0], work_function=popt[2], fermi=popt[1], temp=popt[3])
+                _, y_fit = emitter.calculate_total_energy_distribution()
+                y_data = norm_counts
+                y_fit = y_fit/max(y_fit)
+
+            elif model == "NED":
+                energy_data = self.last_x + 90
+                counts_data = self.last_y
+
+                my_potential = SchottkyPotential()
+                my_band = CustomMetal(energy_data)
+                my_solver = Noumerov()
+                my_supply = LogFermiDirac()
+
+                emitter = MetalEmitter(my_potential, my_solver, my_supply, my_band)
+
+                initial_guess = [4, 90, 4.5, 300]   # field, fermi_level, work_function, temperature
+                bounds = ([1, 89.9, 3, 100], [10, 90.1, 6, 2000])
+                norm_counts = counts_data/max(counts_data)
+
+                def model(x_energies, f,fl, wf, temp):
+            
+                    emitter.update_params(field=f, work_function=wf, fermi=fl, temp=temp)
+                    
+                    _, ned = emitter.calculate_normal_energy_distribution()
+
+                    return ned/max(ned)
+
+                popt, pcov = curve_fit(model, energy_data, norm_counts, p0=initial_guess, bounds=bounds,maxfev=1000000)
+
+                legend = f"Fitted param: F = {popt[0]:.2f} V/nm, E_F = {popt[1]:.2f} eV, PHI = {popt[2]:.2f} eV, T = {popt[3]:.2f} K"
+                x_label = "Energy (eV)"
+                y_label = "Electron count (a.u)"
+
+                emitter.update_params(field=popt[0], work_function=popt[2], fermi=popt[1], temp=popt[3])
+                _, y_fit = emitter.calculate_normal_energy_distribution()
+                y_data = norm_counts
+                y_fit = y_fit/max(y_fit)
 
         except Exception as e:
             QMessageBox.warning(self, "Error", f"Fit failed: {e}")
@@ -477,13 +641,13 @@ class FitTab(QWidget):
 
         self.main.figure.clear()
         ax = self.main.figure.add_subplot(111)
-        ax.plot(self.last_x, self.last_y, "o", color="tab:blue", label="data")
+        ax.plot(self.last_x, y_data, "o", color="tab:blue", label="data")
         ax.plot(self.last_x, y_fit, "-", color="tab:orange", label=legend)
         ax.set_xscale(self.xscale_menu.currentText())
         ax.set_yscale(self.yscale_menu.currentText())
-        ax.set_xlabel("x")
-        ax.set_ylabel("y")
-        ax.set_title(f"{model} fit")
+        ax.set_xlabel(x_label)
+        ax.set_ylabel(y_label)
+        ax.set_title(f"{model} Fit")
         ax.legend()
         self.main.canvas.draw()
 
