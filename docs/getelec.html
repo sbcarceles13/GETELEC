@@ -21,17 +21,191 @@
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
 
+            <h2>Contents</h2>
+            <ul>
+  <li><a href="#quick-start">Quick start</a></li>
+  <li><a href="#full-control">Full control</a></li>
+  <li><a href="#units">Units</a></li>
+  <li><a href="#citing">Citing</a></li>
+</ul>
+
 
             <h2>Submodules</h2>
             <ul>
-                    <li><a href="getelec/band_structure.html">band_structure</a></li>
+                    <li><a href="getelec/transmission_solutions.html">transmission_solutions</a></li>
                     <li><a href="getelec/constants.html">constants</a></li>
-                    <li><a href="getelec/electron_emitter.html">electron_emitter</a></li>
-                    <li><a href="getelec/electron_supply.html">electron_supply</a></li>
                     <li><a href="getelec/potential_barrier.html">potential_barrier</a></li>
-                    <li><a href="getelec/solutions.html">solutions</a></li>
+                    <li><a href="getelec/band_structure.html">band_structure</a></li>
+                    <li><a href="getelec/electron_supply.html">electron_supply</a></li>
                     <li><a href="getelec/transmission_solver.html">transmission_solver</a></li>
+                    <li><a href="getelec/electron_emitter.html">electron_emitter</a></li>
             </ul>
+
+            <h2>API Documentation</h2>
+                <ul class="memberlist">
+            <li>
+                    <a class="function" href="#metal_emitter">metal_emitter</a>
+            </li>
+            <li>
+                    <a class="function" href="#semiconductor_emitter">semiconductor_emitter</a>
+            </li>
+            <li>
+                    <a class="function" href="#current_density">current_density</a>
+            </li>
+            <li>
+                    <a class="function" href="#nottingham_heat">nottingham_heat</a>
+            </li>
+            <li>
+                    <a class="class" href="#MetalEmitter">MetalEmitter</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#MetalEmitter.calculate_transmission_coefficient">calculate_transmission_coefficient</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MetalEmitter.calculate_supply_function">calculate_supply_function</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MetalEmitter.calculate_total_energy_distribution">calculate_total_energy_distribution</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MetalEmitter.calculate_normal_energy_distribution">calculate_normal_energy_distribution</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MetalEmitter.calculate_current_density">calculate_current_density</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MetalEmitter.calculate_nottingham_heat">calculate_nottingham_heat</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#SemiconductorEmitter">SemiconductorEmitter</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_psi">calculate_psi</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_probability_current">calculate_probability_current</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_transmission_coefficient">calculate_transmission_coefficient</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_window_integrated_transmission">calculate_window_integrated_transmission</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_supply_function">calculate_supply_function</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_current_density">calculate_current_density</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_total_energy_distribution">calculate_total_energy_distribution</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_normal_energy_distribution">calculate_normal_energy_distribution</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SemiconductorEmitter.calculate_nottingham_heat">calculate_nottingham_heat</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#NeuralSolver">NeuralSolver</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#NeuralSolver.__init__">NeuralSolver</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#NeuralSolver.fallback">fallback</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#NeuralSolver.exact_solver">exact_solver</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#NeuralSolver.energy_nodes">energy_nodes</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NeuralSolver.get_model">get_model</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NeuralSolver.barrier_in_domain">barrier_in_domain</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NeuralSolver.in_validated_band">in_validated_band</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NeuralSolver.calculate_log_transmission">calculate_log_transmission</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NeuralSolver.calculate_transmission">calculate_transmission</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#WKB">WKB</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#WKB.__init__">WKB</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WKB.fermi_level">fermi_level</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WKB.work_function">work_function</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WKB.electric_field">electric_field</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#WKB.n_nodes">n_nodes</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#WKB.get_gamow_exponent">get_gamow_exponent</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#WKB.calculate_transmission">calculate_transmission</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#AiryTriangular">AiryTriangular</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#AiryTriangular.__init__">AiryTriangular</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AiryTriangular.fermi_level">fermi_level</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AiryTriangular.work_function">work_function</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#AiryTriangular.electric_field">electric_field</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#AiryTriangular.calculate_transmission">calculate_transmission</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="function" href="#transmission_coefficient">transmission_coefficient</a>
+            </li>
+            <li>
+                    <a class="function" href="#supply_function">supply_function</a>
+            </li>
+            <li>
+                    <a class="function" href="#watermark">watermark</a>
+            </li>
+            <li>
+                    <a class="variable" href="#__version__">__version__</a>
+            </li>
+    </ul>
 
 
 
@@ -47,16 +221,1312 @@
                     <h1 class="modulename">
 getelec    </h1>
 
+                        <div class="docstring"><p>GETELEC -- General Tool for Electron Emission Calculations.</p>
+
+<p>Thermal-field electron emission current density and Nottingham heat for metallic
+and semiconducting emitters.</p>
+
+<h2 id="quick-start">Quick start</h2>
+
+<p>The common case is one line, and any argument accepts an array:</p>
+
+<pre><code>&gt;&gt;&gt; import getelec                                        # doctest: +SKIP
+&gt;&gt;&gt; <a href="#current_density">getelec.current_density</a>(field=5.0, work_function=4.5) # doctest: +SKIP
+&gt;&gt;&gt; <a href="#current_density">getelec.current_density</a>(field=np.arange(3, 8, 0.5))   # doctest: +SKIP
+</code></pre>
+
+<p>A sweep is solved as a single batched call, not a Python loop, so it is
+substantially faster than calling the scalar version repeatedly.</p>
+
+<p>For distributions, or to reuse one configuration across many calls:</p>
+
+<pre><code>&gt;&gt;&gt; emitter = <a href="#metal_emitter">getelec.metal_emitter</a>(work_function=4.5,    # doctest: +SKIP
+...                                 fermi_level=7.5, temperature=300)
+&gt;&gt;&gt; emitter.calculate_current_density()                   # doctest: +SKIP
+&gt;&gt;&gt; energies, ted = emitter.calculate_total_energy_distribution()  # doctest: +SKIP
+</code></pre>
+
+<h2 id="full-control">Full control</h2>
+
+<p>The convenience layer just assembles four interchangeable components. Build them
+yourself whenever you need something the shortcuts do not expose:</p>
+
+<pre><code>potential_barrier    -- SchottkyPotential, SmallRadiiPotential, TriangularPotential,
+                        Customised (a potential of your own)
+band_structure       -- Metal, SmartMetal, Semiconductor, SmartSemiconductor,
+                        CustomMetal, CustomSemiconductor,
+                        DensityOfStatesMetal (a tabulated DOS)
+electron_supply      -- FermiDirac, LogFermiDirac
+transmission_solver  -- Noumerov (exact), NoumerovReference (written out
+                        plainly, for checking), NeuralSolver (learned)
+transmission_solutions -- WKB (fast, semiclassical), AiryTriangular
+
+&gt;&gt;&gt; from <a href="getelec/electron_emitter.html">getelec.electron_emitter</a> import MetalEmitter     # doctest: +SKIP
+&gt;&gt;&gt; MetalEmitter(potential, solver, supply, band)         # doctest: +SKIP
+</code></pre>
+
+<h2 id="units">Units</h2>
+
+<p>Inputs are eV, nm, fs, K, and V/nm for the field. Current density comes back in
+A/cm^2, Nottingham heat P_N in W/cm^2, and distributions in A/(eV cm^2).</p>
+
+<h2 id="citing">Citing</h2>
+
+<p>If you use GETELEC, please cite the software, S. Barranco Cárceles,
+A. Kyritsakis and A. Ayari, GETELEC: General Tool for Electron Emission
+Calculations, Zenodo, <a href="https://doi.org/10.5281/zenodo.23093209">https://doi.org/10.5281/zenodo.23093209</a>, and the papers
+listed in README.md and CITATION.cff.</p>
+</div>
+
                 
-                        <input id="mod-getelec-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-
-                        <label class="view-source-button" for="mod-getelec-view-source"><span>View Source</span></label>
-
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a>
-</span></pre></div>
-
-
+                
+                
             </section>
+                <section id="metal_emitter">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">metal_emitter</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>,</span><span class="param">	<span class="n">fermi_level</span><span class="o">=</span><span class="mf">7.5</span>,</span><span class="param">	<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>,</span><span class="param">	<span class="n">field</span><span class="o">=</span><span class="mf">5.0</span>,</span><span class="param">	<span class="n">barrier</span><span class="o">=</span><span class="s1">&#39;schottky&#39;</span>,</span><span class="param">	<span class="n">method</span><span class="o">=</span><span class="s1">&#39;noumerov&#39;</span>,</span><span class="param">	<span class="n">radius</span><span class="o">=</span><span class="mf">20.0</span>,</span><span class="param">	<span class="n">gamma</span><span class="o">=</span><span class="mf">100.0</span>,</span><span class="param">	<span class="n">energy_resolution</span><span class="o">=</span><span class="mf">0.01</span>,</span><span class="param">	<span class="n">band</span><span class="o">=</span><span class="kc">None</span>,</span><span class="param">	<span class="o">**</span><span class="n">solver_kwargs</span></span><span class="return-annotation">) -> <span class="n"><a href="#MetalEmitter">MetalEmitter</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#metal_emitter"></a>
+    
+            <div class="docstring"><p>Build a metal emitter with sensible defaults.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>work_function : float
+    Surface work function, eV.
+fermi_level : float
+    Fermi level measured from the bottom of the conduction band, eV. Set
+    here once; it is propagated to the barrier and the supply function
+    together, which is the pairing most easily got wrong by hand.
+temperature : float
+    Emitter temperature, K.
+field : float
+    Local electric field at the surface, V/nm.
+barrier : {'schottky', 'sharp_tip', 'triangular'} or potential_barrier.Barrier
+    Planar image-charge barrier, one corrected for tip curvature, or the
+    triangular barrier with no image charge, for which <code>method='airy'</code>
+    is exact. A barrier object is used as it is given, most usefully
+    <code>~<a href="getelec/potential_barrier.html#Customised">getelec.potential_barrier.Customised</a></code>, which wraps a potential
+    of your own; <code>fermi_level</code>, <code>work_function</code>, <code>field</code> and
+    <code>temperature</code> are then set on it, as on every other component.
+method : {'noumerov', 'ml', 'wkb', 'airy'}
+    <code>'noumerov'</code> integrates the Schrodinger equation, with no
+    approximation beyond discretisation. <code>'ml'</code> uses <code>~<a href="#NeuralSolver">getelec.transmission_solver.NeuralSolver</a></code>, a
+    trained network with models shipped for both barriers. It pays off for
+    barriers with several parameters; for the planar barrier it is a
+    worked example, and <code>getelec.training</code> trains one for your own
+    conditions. <code>'wkb'</code> is semiclassical: cheapest, but accurate only to
+    a factor of order unity deep in the tunnelling regime.
+fast : bool, default False
+    Use <code>Noumerov.fast()</code>, which is within a small factor of the WKB cost
+    while keeping current density and energy distributions converged. See its
+    docstring for the exact accuracy contract.
+reference : bool, default False
+    Use <code>~<a href="getelec/transmission_solver.html#NoumerovReference">getelec.transmission_solver.NoumerovReference</a></code>, the same
+    integration written out plainly, one energy at a time, to check a
+    result: about half a second for a metal current density. It takes
+    <code>x_start</code>, <code>x_end</code>, <code>h</code> and <code>seed</code>. Cannot be combined with
+    <code>fast</code>.
+radius, gamma : float
+    Tip radius (nm) and field enhancement, used only by <code>'sharp_tip'</code>.
+    The barrier is valid for radii of 20-1000 nm.
+energy_resolution : float
+    Energy grid spacing, eV. Ignored when <code>band</code> is given, since a band
+    structure carries its own.
+band : band_structure.BandStructure, optional
+    The band structure to use instead of the default
+    <code>~<a href="getelec/band_structure.html#SmartMetal">getelec.band_structure.SmartMetal</a></code>. Pass a
+    <code>~<a href="getelec/band_structure.html#DensityOfStatesMetal">getelec.band_structure.DensityOfStatesMetal</a></code> to weight the
+    emission by a tabulated density of states; <code>fermi_level</code> and
+    <code>work_function</code> are then set on it as well, so its normalisation
+    follows a sweep.
+**solver_kwargs
+    Passed to the solver, e.g. <code>h=5e-4</code> to refine the spatial grid.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>MetalEmitter</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">em</span> <span class="o">=</span> <span class="n">metal_emitter</span><span class="p">(</span><span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>   <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">em</span><span class="o">.</span><span class="n">calculate_current_density</span><span class="p">()</span>                            <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">em</span><span class="o">.</span><span class="n">update_params</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>                               <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+</div>
+</div>
+
+
+                </section>
+                <section id="semiconductor_emitter">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">semiconductor_emitter</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>,</span><span class="param">	<span class="n">fermi_level</span><span class="o">=</span><span class="mf">13.0</span>,</span><span class="param">	<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>,</span><span class="param">	<span class="n">field</span><span class="o">=</span><span class="mf">5.0</span>,</span><span class="param">	<span class="n">top_valence</span><span class="o">=</span><span class="mf">12.5</span>,</span><span class="param">	<span class="n">band_gap</span><span class="o">=</span><span class="mf">1.12</span>,</span><span class="param">	<span class="n">electron_eff_mass</span><span class="o">=</span><span class="mf">1.64</span>,</span><span class="param">	<span class="n">hole_eff_mass</span><span class="o">=</span><span class="mf">0.68</span>,</span><span class="param">	<span class="n">barrier</span><span class="o">=</span><span class="s1">&#39;schottky&#39;</span>,</span><span class="param">	<span class="n">method</span><span class="o">=</span><span class="s1">&#39;noumerov&#39;</span>,</span><span class="param">	<span class="n">radius</span><span class="o">=</span><span class="mf">20.0</span>,</span><span class="param">	<span class="n">gamma</span><span class="o">=</span><span class="mf">100.0</span>,</span><span class="param">	<span class="n">energy_resolution</span><span class="o">=</span><span class="mf">0.002</span>,</span><span class="param">	<span class="o">**</span><span class="n">solver_kwargs</span></span><span class="return-annotation">) -> <span class="n"><a href="#SemiconductorEmitter">SemiconductorEmitter</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#semiconductor_emitter"></a>
+    
+            <div class="docstring"><p>Build a semiconductor emitter with sensible defaults.</p>
+
+<p>Defaults describe silicon. Parameters shared with <code><a href="#metal_emitter">metal_emitter()</a></code>
+behave the same way, with one exception: a barrier object passed as
+<code>barrier</code> is used exactly as it is, and none of the Fermi level, work
+function, field or temperature is set on it. Give a
+<code>~<a href="getelec/potential_barrier.html#Customised">getelec.potential_barrier.Customised</a></code> barrier those values
+yourself.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>top_valence : float
+    Energy of the valence band maximum, eV, measured from the same zero as
+    <code>fermi_level</code>.
+band_gap : float
+    Band gap, eV.
+electron_eff_mass, hole_eff_mass : float
+    Effective masses relative to the free electron mass.
+energy_resolution : float, default 0.002
+    Energy grid spacing, eV. Five times finer than for a metal, because
+    each band's grid ends at its band edge, where the TED has a finite
+    slope: the trapezoid error in the current is then ~(h / k_B T)^2 / 12,
+    about 1.1% at 0.01 eV and 300 K, and 0.05% at 0.002 eV. A metal's grid
+    ends in tails where the TED is flat, which is why 0.01 suffices there.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>SemiconductorEmitter</p>
+</div>
+
+
+                </section>
+                <section id="current_density">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">current_density</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">field</span><span class="o">=</span><span class="mf">5.0</span>,</span><span class="param">	<span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>,</span><span class="param">	<span class="n">fermi_level</span><span class="o">=</span><span class="mf">7.5</span>,</span><span class="param">	<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#current_density"></a>
+    
+            <div class="docstring"><p>Emitted current density in A/cm^2.</p>
+
+<p>Any of <code>field</code>, <code>work_function</code>, <code>fermi_level</code> and <code>temperature</code> may
+be arrays; they are broadcast against each other and the whole set is solved
+in one batched pass.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>field : float or array_like
+    Local surface field, V/nm.
+work_function : float or array_like
+    Work function, eV.
+fermi_level : float or array_like
+    Fermi level, eV.
+temperature : float or array_like
+    Temperature, K.
+**kwargs
+    Forwarded to <code><a href="#metal_emitter">metal_emitter()</a></code> (<code>barrier</code>, <code>method</code>, <code>h</code>, ...).</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>float or np.ndarray
+    Scalar if every input was scalar, otherwise the broadcast shape.</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">current_density</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>                                <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">current_density</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>              <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">current_density</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1500</span><span class="p">])</span>  <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+</div>
+</div>
+
+
+                </section>
+                <section id="nottingham_heat">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">nottingham_heat</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">field</span><span class="o">=</span><span class="mf">5.0</span>,</span><span class="param">	<span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>,</span><span class="param">	<span class="n">fermi_level</span><span class="o">=</span><span class="mf">7.5</span>,</span><span class="param">	<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#nottingham_heat"></a>
+    
+            <div class="docstring"><p>Nottingham heat P_N in W/cm^2: negative when the surface heats (electrons
+leave from below E_F and are replaced by hotter ones), positive when it
+cools.</p>
+
+<p>Broadcasts over its arguments exactly like <code><a href="#current_density">current_density()</a></code>.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>float or np.ndarray</p>
+</div>
+
+
+                </section>
+                <section id="MetalEmitter">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">MetalEmitter</span><wbr>(<span class="base"><a href="getelec/electron_emitter.html#_MetalPsiMixin">getelec.electron_emitter._MetalPsiMixin</a></span>, <span class="base"><a href="getelec/electron_emitter.html#_EmitterBase">getelec.electron_emitter._EmitterBase</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter"></a>
+    
+            <div class="docstring"><p>Thermal-field emission from a metal surface.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>potential : potential_barrier.Barrier
+    Barrier profile (work function, field, Fermi level).
+solver : transmission_solver.TransmissionSolver
+    How transmission probabilities are evaluated.
+supply : electron_supply.Supply
+    Electron supply function.
+band : band_structure.BandStructure
+    Energy grid generator.</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">getelec</span><span class="w"> </span><span class="kn">import</span> <span class="n">potential_barrier</span><span class="p">,</span> <span class="n">band_structure</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">getelec</span><span class="w"> </span><span class="kn">import</span> <span class="n">transmission_solver</span><span class="p">,</span> <span class="n">electron_supply</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">emitter</span> <span class="o">=</span> <span class="n">MetalEmitter</span><span class="p">(</span>                                 <span class="c1"># doctest: +SKIP</span>
+<span class="gp">... </span>    <span class="n">potential_barrier</span><span class="o">.</span><span class="n">SchottkyPotential</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">transmission_solver</span><span class="o">.</span><span class="n">Noumerov</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">electron_supply</span><span class="o">.</span><span class="n">LogFermiDirac</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">band_structure</span><span class="o">.</span><span class="n">SmartMetal</span><span class="p">(),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">emitter</span><span class="o">.</span><span class="n">calculate_current_density</span><span class="p">()</span>                     <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+</div>
+</div>
+
+
+                            <div id="MetalEmitter.calculate_transmission_coefficient" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_transmission_coefficient</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter.calculate_transmission_coefficient"></a>
+    
+            <div class="docstring"><p>Transmission probability D(E) on the emitter's energy grid.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies, transmission : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="MetalEmitter.calculate_supply_function" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_supply_function</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter.calculate_supply_function"></a>
+    
+            <div class="docstring"><p>Supply function l(E) on the emitter's energy grid, in eV.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies, supply : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="MetalEmitter.calculate_total_energy_distribution" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_total_energy_distribution</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter.calculate_total_energy_distribution"></a>
+    
+            <div class="docstring"><p>Total energy distribution, in A/(eV cm^2).</p>
+
+<p><code>TED(E) = R(E) f(E) * integral of D(E_z) dE_z</code> up to E -- the bare
+occupancy times the transmission integrated over normal energy. See
+<code>~<a href="getelec/electron_supply.html#Supply.get_occupancy">getelec.electron_supply.Supply.get_occupancy()</a></code> for why this uses
+<code>f</code> while the normal distribution uses <code>l</code>.</p>
+
+<p><code>R(E)</code> is the band structure's state weight, one everywhere for a free
+electron gas and so for every band structure but
+<code>~<a href="getelec/band_structure.html#DensityOfStatesMetal">getelec.band_structure.DensityOfStatesMetal</a></code>.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies, ted : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="MetalEmitter.calculate_normal_energy_distribution" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_normal_energy_distribution</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter.calculate_normal_energy_distribution"></a>
+    
+            <div class="docstring"><p>Normal energy distribution, in A/(eV cm^2).</p>
+
+<p><code>NED(E_z) = S(E_z) * D(E_z)</code>. For a metal the effective mass equals
+the free mass, so the transverse window is unrestricted and this is the
+whole of it.</p>
+
+<p>For a free electron gas <code>S</code> is the log supply <code>l(E_z)</code>. When the
+band structure weights its states -- a tabulated density of states --
+the supply is instead integrated over the weighted occupancy above
+<code>E_z</code>, which is what keeps <code>integral NED dE_z == integral TED dE</code>.
+See <code>get_weighted_normal_supply()</code>.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies, ned : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="MetalEmitter.calculate_current_density" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_current_density</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter.calculate_current_density"></a>
+    
+            <div class="docstring"><p>Emitted current density, in A/cm^2.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>float</p>
+</div>
+
+
+                            </div>
+                            <div id="MetalEmitter.calculate_nottingham_heat" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_nottingham_heat</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#MetalEmitter.calculate_nottingham_heat"></a>
+    
+            <div class="docstring"><p>Nottingham heat P_N, in W/cm^2.</p>
+
+<p>The net power carried away by the emitted electrons relative to the
+replacement energy, taken at the Fermi level:</p>
+
+<pre><code>P_N = integral of (E - E_F) * TED(E) dE .
+</code></pre>
+
+<p><strong>Negative means the emitter heats, positive that it cools.</strong> An
+electron leaving from below E_F is replaced by a hotter one at E_F, so
+cold field emission heats the tip (P_N &lt; 0); at high temperature the
+emission moves above E_F and the tip cools (P_N &gt; 0).</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>float</p>
+
+<h2 id="notes">Notes</h2>
+
+<p>Reported in <strong>W/cm^2</strong>, the same area unit as the current density:
+the TED is in A/(eV cm^2), so its energy moment is in W/cm^2 directly.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="getelec/electron_emitter.html#_EmitterBase">getelec.electron_emitter._EmitterBase</a></dt>
+                                <dd id="MetalEmitter.__init__" class="function"><a href="getelec/electron_emitter.html#_EmitterBase.__init__">_EmitterBase</a></dd>
+                <dd id="MetalEmitter.potential" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.potential">potential</a></dd>
+                <dd id="MetalEmitter.solver" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.solver">solver</a></dd>
+                <dd id="MetalEmitter.supply" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.supply">supply</a></dd>
+                <dd id="MetalEmitter.band" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.band">band</a></dd>
+                <dd id="MetalEmitter.update_params" class="function"><a href="getelec/electron_emitter.html#_EmitterBase.update_params">update_params</a></dd>
+                <dd id="MetalEmitter.get_params" class="function"><a href="getelec/electron_emitter.html#_EmitterBase.get_params">get_params</a></dd>
+
+            </div>
+            <div><dt><a href="getelec/electron_emitter.html#_MetalPsiMixin">getelec.electron_emitter._MetalPsiMixin</a></dt>
+                                <dd id="MetalEmitter.calculate_psi" class="function"><a href="getelec/electron_emitter.html#_MetalPsiMixin.calculate_psi">calculate_psi</a></dd>
+                <dd id="MetalEmitter.calculate_probability_current" class="function"><a href="getelec/electron_emitter.html#_MetalPsiMixin.calculate_probability_current">calculate_probability_current</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="SemiconductorEmitter">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">SemiconductorEmitter</span><wbr>(<span class="base"><a href="getelec/electron_emitter.html#_MetalPsiMixin">getelec.electron_emitter._MetalPsiMixin</a></span>, <span class="base"><a href="getelec/electron_emitter.html#_EmitterBase">getelec.electron_emitter._EmitterBase</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter"></a>
+    
+            <div class="docstring"><p>Thermal-field emission from a semiconductor surface.</p>
+
+<p>Conduction and valence band channels are treated separately, each with its
+own effective mass, and summed.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>potential : potential_barrier.Barrier
+solver : transmission_solver.TransmissionSolver
+supply : electron_supply.Supply
+band : band_structure.Semiconductor</p>
+</div>
+
+
+                            <div id="SemiconductorEmitter.calculate_psi" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_psi</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">energies</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">x_points</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_psi"></a>
+    
+            <div class="docstring"><p>The wavefunction for each band, on that band's energy grid.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>energies : tuple of array_like, optional
+    <code>(conduction, valence)</code>. Defaults to the emitter's own grids.
+x_points : array_like, optional
+    Positions in nm, shared by both bands.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, x_cb, psi_cb, energies_vb, x_vb, psi_vb : np.ndarray
+    Each band gets its own spatial grid: the domain is sized to enclose
+    the barrier down to the lowest energy requested, and the two bands
+    start at different energies.</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_probability_current" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_probability_current</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">energies</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_probability_current"></a>
+    
+            <div class="docstring"><p>Probability current for each band, on that band's grid.</p>
+
+<p>A stationary scattering state carries a current that does not depend on
+position, and the Noumerov scheme does not enforce that -- so how much
+this varies across the grid is an independent check on the integration,
+band by band.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, x_cb, current_cb, energies_vb, x_vb, current_vb : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_transmission_coefficient" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_transmission_coefficient</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_transmission_coefficient"></a>
+    
+            <div class="docstring"><p>Transmission for each band, on its own energy grid.</p>
+
+<p>D(E) itself, the tunnelling probability, in [0, 1]. The effective masses
+do not appear here: they set the window limits of Eq. (8) that
+<code><a href="#SemiconductorEmitter.calculate_total_energy_distribution">calculate_total_energy_distribution()</a></code> integrates D between.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, trans_cb, energies_vb, trans_vb : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_window_integrated_transmission" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_window_integrated_transmission</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_window_integrated_transmission"></a>
+    
+            <div class="docstring"><p>Transmission integrated over the emission window, for each band.</p>
+
+<p><code>g(E) = integral of D(E_z) dE_z</code> from <code>lower(E)</code> to <code>E</code>, the
+window of Eq. (8), in <strong>eV</strong> -- a transmission times the width of the
+window it was integrated over, so it is <em>not</em> a probability and is not
+bounded by 1.</p>
+
+<p>Why it exists. <code><a href="#SemiconductorEmitter.calculate_transmission_coefficient">calculate_transmission_coefficient()</a></code> returns
+<code>D(E)</code>, which does not depend on the effective masses at all: the
+barrier contains no mass. The masses enter only through the limits this
+integral runs between, so <code>g(E)</code> is the smallest object that shows
+how the transmission enters the current <em>as the masses change it</em>. A
+heavier mass opens the window wider and raises <code>g</code>, which is the same
+direction the current moves in.</p>
+
+<p><code>TED(E) = f(E) g(E)</code> -- this is the same <code>g</code> the distributions and
+the current are built from, read out rather than recomputed, so the
+plotted curve cannot drift from the physics.</p>
+
+<p>Not to be confused with the by-parts integrand <code>g'(E)</code> of Eq. (15),
+which is negative throughout the valence band for every hole mass and
+is not returned anywhere.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, window_cb, energies_vb, window_vb : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_supply_function" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_supply_function</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_supply_function"></a>
+    
+            <div class="docstring"><p>Supply function l(E) for each band, on its own energy grid.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, supply_cb, energies_vb, supply_vb : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_current_density" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_current_density</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_current_density"></a>
+    
+            <div class="docstring"><p>Total current density summed over both bands, in A/cm^2.</p>
+
+<p>The integral of the total energy distribution, band by band. </p>
+
+<h2 id="returns">Returns</h2>
+
+<p>float</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_total_energy_distribution" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_total_energy_distribution</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_total_energy_distribution"></a>
+    
+            <div class="docstring"><p>Total energy distribution for each band, in A/(eV cm^2).</p>
+
+<p><code>TED(E) = f(E) * integral of D(E_z) dE_z</code> over the band's window,
+evaluated directly rather than recovered from its derivative. See
+<code>_band_window_distributions()</code>.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, ted_cb, energies_vb, ted_vb : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_normal_energy_distribution" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_normal_energy_distribution</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_normal_energy_distribution"></a>
+    
+            <div class="docstring"><p>Normal energy distribution for each band, in A/(eV cm^2).</p>
+
+<p><code>NED(E_z) = D(E_z) * [ l(E_z) - l(E_upper) ]</code> -- Stratton Eq. (95) for
+the valence band, Eq. (49) for the conduction band. Non-negative by
+construction.</p>
+
+<p>Returned on its own <code>E_z</code> grid, which extends <strong>below</strong> the
+total-energy grid. For the conduction band with <code>m_e* &gt; m</code> this puts
+part of the NED in the band gap, and that is correct: <code>E_z</code> is the
+normal energy in vacuum, and the conserved parallel momentum carries
+up to <code>(m_e*/m)(E - E_C)</code> of transverse energy there, more than the
+electron's whole kinetic energy in the band. Truncating at <code>E_C</code>
+would lose that part of the current. See the GUIDE section
+"Semiconductors: the two energy distributions" and
+<code>_band_window_distributions()</code>.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies_cb, ned_cb, energies_vb, ned_vb : np.ndarray</p>
+</div>
+
+
+                            </div>
+                            <div id="SemiconductorEmitter.calculate_nottingham_heat" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_nottingham_heat</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">float</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#SemiconductorEmitter.calculate_nottingham_heat"></a>
+    
+            <div class="docstring"><p>Nottingham heat P_N summed over both bands, in W/cm^2.</p>
+
+<p><code>P_N = integral of (E - E_R) * TED(E) dE</code> with the replacement energy
+<code>E_R</code> at the Fermi level, per Eqs. (13) and (19). <strong>Negative means the
+emitter heats, positive that it cools</strong>, exactly as for a metal: an
+electron leaving from below E_F is replaced by a hotter one.</p>
+
+<p>At low field the valence band leads: electrons leave from below E_F, so
+the tip heats (P_N &lt; 0). As the field rises the conduction band, above
+E_F, takes over and the sign flips to cooling (P_N &gt; 0).</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>float</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="getelec/electron_emitter.html#_EmitterBase">getelec.electron_emitter._EmitterBase</a></dt>
+                                <dd id="SemiconductorEmitter.__init__" class="function"><a href="getelec/electron_emitter.html#_EmitterBase.__init__">_EmitterBase</a></dd>
+                <dd id="SemiconductorEmitter.potential" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.potential">potential</a></dd>
+                <dd id="SemiconductorEmitter.solver" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.solver">solver</a></dd>
+                <dd id="SemiconductorEmitter.supply" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.supply">supply</a></dd>
+                <dd id="SemiconductorEmitter.band" class="variable"><a href="getelec/electron_emitter.html#_EmitterBase.band">band</a></dd>
+                <dd id="SemiconductorEmitter.update_params" class="function"><a href="getelec/electron_emitter.html#_EmitterBase.update_params">update_params</a></dd>
+                <dd id="SemiconductorEmitter.get_params" class="function"><a href="getelec/electron_emitter.html#_EmitterBase.get_params">get_params</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="NeuralSolver">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">NeuralSolver</span><wbr>(<span class="base"><a href="getelec/transmission_solver.html#TransmissionSolver">getelec.transmission_solver.TransmissionSolver</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver"></a>
+    
+            <div class="docstring"><p>Transmission from a trained neural network.</p>
+
+<p>The network never predicts <code>D</code>. It predicts the residual</p>
+
+<pre><code>R = ln D_noumerov - ln D_kemble
+</code></pre>
+
+<p>against a semiclassical reference for the same barrier. The reference
+already carries the exponential -- hundreds of e-folds -- so the network
+only learns a correction of order unity, and the error budget is explicit:
+relative error in <code>D</code> is exactly absolute error in <code>R</code>.</p>
+
+<p><strong>When it is worth it.</strong> For the planar Schottky barrier the network is
+several times faster than <code>Noumerov.fast()</code>, but that calculation was
+already cheap: the model there is the worked example, not the reason. Its cost does not grow with the number
+of barrier parameters, while exact solves or a table of them do, so it pays
+off for barriers with several -- tip radius and field enhancement, as in the
+shipped curved-tip model. The shipped Schottky model is there as a running
+example of the workflow; <code>getelec.training</code> trains one for your own
+barrier.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>model : None, str, Path or NeuralModel, optional
+    <code>None</code> picks the shipped model for the barrier's class (see
+    <code>SHIPPED_MODELS</code>). A path or a <code>NeuralModel</code> uses that
+    model, for barriers of the class it was trained on.
+fallback : {'exact', 'wkb', 'error'}, default 'exact'
+    What to do for a barrier with no model, or outside the trained domain.
+    <code>'exact'</code> solves it with Noumerov, keeping the answer right at the
+    cost of speed. <code>'wkb'</code> uses the numerical semiclassical result.
+    <code>'error'</code> raises, which is what a pipeline that must not silently
+    change accuracy wants.
+exact_solver : optional
+    Used by the <code>'exact'</code> fallback. Defaults to <code>Noumerov.fast()</code>.
+energy_nodes : int, default 48
+    Evaluate on this many energies and spline <code>ln D</code> onto the rest. Both
+    the reference and the forward pass cost time proportional to the number
+    of energies, and <code>ln D</code> is smooth in energy, so this makes the cost
+    flat in grid size and changes the answer by well under 1%. Set to 0 to
+    evaluate at every energy.</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">solver</span> <span class="o">=</span> <span class="n">NeuralSolver</span><span class="p">()</span>                                     <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">barrier</span> <span class="o">=</span> <span class="n">SmallRadiiPotential</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">solver</span><span class="o">.</span><span class="n">calculate_transmission</span><span class="p">(</span><span class="n">barrier</span><span class="p">,</span> <span class="n">energies</span><span class="p">)</span>            <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+</div>
+</div>
+
+
+                            <div id="NeuralSolver.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">NeuralSolver</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">model</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;exact&#39;</span>, </span><span class="param"><span class="n">exact_solver</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">energy_nodes</span><span class="o">=</span><span class="mi">48</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="NeuralSolver.fallback" class="classattr">
+                                <div class="attr variable">
+            <span class="name">fallback</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.fallback"></a>
+    
+    
+
+                            </div>
+                            <div id="NeuralSolver.exact_solver" class="classattr">
+                                <div class="attr variable">
+            <span class="name">exact_solver</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.exact_solver"></a>
+    
+    
+
+                            </div>
+                            <div id="NeuralSolver.energy_nodes" class="classattr">
+                                <div class="attr variable">
+            <span class="name">energy_nodes</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.energy_nodes"></a>
+    
+    
+
+                            </div>
+                            <div id="NeuralSolver.get_model" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_model</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.get_model"></a>
+    
+            <div class="docstring"><p>The model this solver uses for <code>potential</code>, or <code>None</code>.</p>
+</div>
+
+
+                            </div>
+                            <div id="NeuralSolver.barrier_in_domain" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">barrier_in_domain</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span></span><span class="return-annotation">) -> <span class="nb">bool</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.barrier_in_domain"></a>
+    
+            <div class="docstring"><p>Whether a model exists for this barrier and its parameters were trained on.</p>
+</div>
+
+
+                            </div>
+                            <div id="NeuralSolver.in_validated_band" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">in_validated_band</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span>, </span><span class="param"><span class="n">energies</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.in_validated_band"></a>
+    
+            <div class="docstring"><p>Energies whose barrier height falls inside the trained range.</p>
+</div>
+
+
+                            </div>
+                            <div id="NeuralSolver.calculate_log_transmission" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_log_transmission</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span>, </span><span class="param"><span class="n">energies</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.calculate_log_transmission"></a>
+    
+            <div class="docstring"><p><code>ln D</code> at each energy.</p>
+</div>
+
+
+                            </div>
+                            <div id="NeuralSolver.calculate_transmission" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_transmission</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span>, </span><span class="param"><span class="n">energies</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NeuralSolver.calculate_transmission"></a>
+    
+            <div class="docstring"><p>Transmission probability at each energy.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="getelec/transmission_solver.html#TransmissionSolver">getelec.transmission_solver.TransmissionSolver</a></dt>
+                                <dd id="NeuralSolver.calculate_transmission_batch" class="function"><a href="getelec/transmission_solver.html#TransmissionSolver.calculate_transmission_batch">calculate_transmission_batch</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="WKB">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">WKB</span><wbr>(<span class="base"><a href="getelec/transmission_solver.html#TransmissionSolver">getelec.transmission_solver.TransmissionSolver</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#WKB"></a>
+    
+            <div class="docstring"><p>Semiclassical (WKB) transmission for the Schottky-Nordheim barrier.</p>
+
+<p>The Gamow exponent is</p>
+
+<pre><code>G = sqrt(2m)/hbar * integral from x1 to x2 of sqrt(V(x) - E) dx,
+</code></pre>
+
+<p>with <code>V(x) = E_F + phi - F x - k_e / (4x)</code> and <code>x1, x2</code> the classical
+turning points, i.e. the roots of <code>F x^2 + (E - E_F - phi) x + k_e / 4</code>.
+Transmission then follows from the Kemble form, <code>T = 1 / (1 + exp(2G))</code>.</p>
+
+<p>The integrand is <code>sqrt(F (x2 - x)(x - x1) / x)</code>, which vanishes like a
+square root at both turning points. Gauss-Chebyshev quadrature of the second
+kind carries exactly that weight, so it converges geometrically where an
+adaptive general-purpose rule fights the endpoint behaviour: 64 nodes give
+about 12 significant figures. It is also fully vectorised over energy, with
+no Python-level loop.</p>
+
+<p>Above the barrier top the turning points become complex. There the exponent
+is continued using the inverted-parabola (Kemble) approximation at the
+barrier maximum, so <code>T -&gt; 1</code> smoothly instead of the formula breaking down.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>fermi_level, work_function, electric_field : float
+    Barrier parameters (eV, eV, V/nm).
+n_nodes : int, default 64
+    Quadrature nodes. 64 is converged to round-off for typical parameters.</p>
+</div>
+
+
+                            <div id="WKB.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">WKB</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">fermi_level</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">9.5</span>,</span><span class="param">	<span class="n">work_function</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.5</span>,</span><span class="param">	<span class="n">electric_field</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span>,</span><span class="param">	<span class="n">n_nodes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="WKB.fermi_level" class="classattr">
+                                <div class="attr variable">
+            <span class="name">fermi_level</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.fermi_level"></a>
+    
+    
+
+                            </div>
+                            <div id="WKB.work_function" class="classattr">
+                                <div class="attr variable">
+            <span class="name">work_function</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.work_function"></a>
+    
+    
+
+                            </div>
+                            <div id="WKB.electric_field" class="classattr">
+                                <div class="attr variable">
+            <span class="name">electric_field</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.electric_field"></a>
+    
+    
+
+                            </div>
+                            <div id="WKB.n_nodes" class="classattr">
+                                <div class="attr variable">
+            <span class="name">n_nodes</span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.n_nodes"></a>
+    
+    
+
+                            </div>
+                            <div id="WKB.get_gamow_exponent" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_gamow_exponent</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">energies</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>, </span><span class="param"><span class="n">potential</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.get_gamow_exponent"></a>
+    
+            <div class="docstring"><p>Gamow exponent G at each energy (dimensionless).</p>
+
+<p>Exposed separately because G, not T, is the quantity that appears in
+Fowler-Nordheim analysis and in slope/intercept fitting.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>energies : np.ndarray
+potential : potential_barrier.Barrier, optional
+    If given, its parameters take precedence over the ones stored on
+    this solver.</p>
+</div>
+
+
+                            </div>
+                            <div id="WKB.calculate_transmission" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_transmission</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span>, </span><span class="param"><span class="n">energies</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#WKB.calculate_transmission"></a>
+    
+            <div class="docstring"><p>Transmission probability at each energy, via the Kemble form.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="getelec/transmission_solver.html#TransmissionSolver">getelec.transmission_solver.TransmissionSolver</a></dt>
+                                <dd id="WKB.calculate_transmission_batch" class="function"><a href="getelec/transmission_solver.html#TransmissionSolver.calculate_transmission_batch">calculate_transmission_batch</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="AiryTriangular">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">AiryTriangular</span><wbr>(<span class="base"><a href="getelec/transmission_solver.html#TransmissionSolver">getelec.transmission_solver.TransmissionSolver</a></span>):
+
+        
+    </div>
+    <a class="headerlink" href="#AiryTriangular"></a>
+    
+            <div class="docstring"><p>Exact transmission through a pure triangular barrier, via Airy functions.</p>
+
+<p>For <code>V(x) = E_F + phi - F x</code> outside the metal and <code>V = 0</code> inside, with
+no image term -- the barrier of
+<code>~<a href="getelec/potential_barrier.html#TriangularPotential">getelec.potential_barrier.TriangularPotential</a></code> -- the Schrodinger
+equation outside is Airy's equation, so the transmission has a closed form.
+A plane wave in the metal, matched at the surface to the outgoing wave
+<code>Bi + i Ai</code> outside, gives</p>
+
+<pre><code>T = (4k / (pi beta)) / [ (k/beta)^2 (Ai^2 + Bi^2) + Ai'^2 + Bi'^2 + 2k / (pi beta) ]
+</code></pre>
+
+<p>with <code>k</code> the wavevector in the metal, <code>beta = (F / (hbar^2/2m))^(1/3)</code>,
+and the Airy functions evaluated at the surface, <code>zeta = beta (E_F + phi - E) / F</code>.
+The last term is the Wronskian <code>Ai Bi' - Ai' Bi = 1/pi</code>. It is negligible in
+deep tunnelling, where <code>Bi</code> is exponentially large, and it is what takes
+the result to the step-barrier value <code>4 k q / (k + q)^2</code> far above the
+barrier, <code>q</code> being the wavevector just outside the surface.</p>
+
+<p>This is not the barrier a metal presents -- dropping the image charge
+removes the Schottky lowering, so it overestimates the barrier and
+underestimates emission. Its value is as a check: it is the one case where
+an exact answer exists, so it pins the numerical solver against something
+that is not another numerical solver.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>fermi_level, work_function, electric_field : float
+    eV, eV, V/nm. Read from the barrier when one is passed.</p>
+</div>
+
+
+                            <div id="AiryTriangular.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">AiryTriangular</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">fermi_level</span><span class="o">=</span><span class="mf">9.5</span>, </span><span class="param"><span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>, </span><span class="param"><span class="n">electric_field</span><span class="o">=</span><span class="mf">3.0</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AiryTriangular.__init__"></a>
+    
+    
+
+                            </div>
+                            <div id="AiryTriangular.fermi_level" class="classattr">
+                                <div class="attr variable">
+            <span class="name">fermi_level</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AiryTriangular.fermi_level"></a>
+    
+    
+
+                            </div>
+                            <div id="AiryTriangular.work_function" class="classattr">
+                                <div class="attr variable">
+            <span class="name">work_function</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AiryTriangular.work_function"></a>
+    
+    
+
+                            </div>
+                            <div id="AiryTriangular.electric_field" class="classattr">
+                                <div class="attr variable">
+            <span class="name">electric_field</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AiryTriangular.electric_field"></a>
+    
+    
+
+                            </div>
+                            <div id="AiryTriangular.calculate_transmission" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">calculate_transmission</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">potential</span>, </span><span class="param"><span class="n">energies</span></span><span class="return-annotation">) -> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#AiryTriangular.calculate_transmission"></a>
+    
+            <div class="docstring"><p>Transmission probability at each energy.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="getelec/transmission_solver.html#TransmissionSolver">getelec.transmission_solver.TransmissionSolver</a></dt>
+                                <dd id="AiryTriangular.calculate_transmission_batch" class="function"><a href="getelec/transmission_solver.html#TransmissionSolver.calculate_transmission_batch">calculate_transmission_batch</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="transmission_coefficient">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">transmission_coefficient</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">field</span><span class="o">=</span><span class="mf">5.0</span>,</span><span class="param">	<span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>,</span><span class="param">	<span class="n">fermi_level</span><span class="o">=</span><span class="mf">7.5</span>,</span><span class="param">	<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>,</span><span class="param">	<span class="n">energies</span><span class="o">=</span><span class="kc">None</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#transmission_coefficient"></a>
+    
+            <div class="docstring"><p>Transmission coefficient D(E), the bare tunnelling probability.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>field, work_function, fermi_level, temperature : float
+    Barrier and emitter parameters. <code>temperature</code> only sets the default
+    energy grid; D itself does not depend on it.
+energies : array_like, optional
+    Energies at which to evaluate D, in eV. Defaults to the emitter's own
+    grid, which is chosen to cover everything that carries current.
+**kwargs
+    Forwarded to <code><a href="#metal_emitter">metal_emitter()</a></code> (<code>method</code>, <code>barrier</code>, ...).</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies, transmission : np.ndarray</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">E</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">transmission_coefficient</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>               <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">E</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">transmission_coefficient</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;ml&quot;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+</div>
+</div>
+
+
+                </section>
+                <section id="supply_function">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">supply_function</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">field</span><span class="o">=</span><span class="mf">5.0</span>,</span><span class="param">	<span class="n">work_function</span><span class="o">=</span><span class="mf">4.5</span>,</span><span class="param">	<span class="n">fermi_level</span><span class="o">=</span><span class="mf">7.5</span>,</span><span class="param">	<span class="n">temperature</span><span class="o">=</span><span class="mf">300.0</span>,</span><span class="param">	<span class="n">energies</span><span class="o">=</span><span class="kc">None</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#supply_function"></a>
+    
+            <div class="docstring"><p>Electron supply function N(E).</p>
+
+<p>Electrons arriving at the barrier per unit energy. Independent of the field
+and of the barrier shape; it depends only on temperature and Fermi level.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>energies, supply : np.ndarray</p>
+</div>
+
+
+                </section>
+                <section id="watermark">
+                    <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">watermark</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">target</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">text</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span>, </span><span class="param"><span class="n">size</span><span class="o">=</span><span class="mi">8</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#watermark"></a>
+    
+            <div class="docstring"><p>Put the GETELEC attribution in the bottom-right corner of a plot.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>target : matplotlib Axes or Figure, optional
+    Where to draw. Defaults to the current axes. Passing a Figure places the
+    mark once for the whole figure rather than once per panel.
+text : str, optional
+    Overrides <code>WATERMARK_TEXT</code>.
+alpha, size : float
+    Opacity and font size.</p>
+
+<h2 id="returns">Returns</h2>
+
+<p>matplotlib.text.Text</p>
+
+<h2 id="examples">Examples</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>          <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>                 <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">current</span><span class="p">)</span>                 <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n"><a href="#watermark">getelec.watermark</a></span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>                   <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+</div>
+</div>
+
+
+                </section>
+                <section id="__version__">
+                    <div class="attr variable">
+            <span class="name">__version__</span>        =
+<span class="default_value">&#39;3.1.0&#39;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#__version__"></a>
+    
+    
+
+                </section>
     </main>
 <script>
     function escapeHTML(html) {

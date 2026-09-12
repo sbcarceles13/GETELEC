@@ -1,0 +1,79 @@
+cff-version: 1.2.0
+message: >-
+  If you use GETELEC, please cite the software as below, and the papers listed
+  under references.
+type: software
+title: "GETELEC: General Tool for Electron Emission Calculations"
+abstract: >-
+  Thermal-field electron emission current density, energy distributions and
+  Nottingham heat for metallic and semiconducting emitters, with a graphical
+  interface for calculations and fitting.
+authors:
+  - family-names: Barranco Cárceles
+    given-names: Salvador
+    affiliation: University of Tartu
+    orcid: "https://orcid.org/0000-0001-8154-0866"
+  - family-names: Kyritsakis
+    given-names: Andreas
+    orcid: "https://orcid.org/0000-0002-4334-5450"
+  - family-names: Ayari
+    given-names: Anthony
+    orcid: "https://orcid.org/0000-0003-1654-5470"
+version: 3.1.0
+doi: 10.5281/zenodo.23093209
+license: MIT
+repository-code: "https://github.com/sbcarceles13/GETELEC"
+keywords:
+  - field emission
+  - thermionic emission
+  - electron emission
+  - Nottingham effect
+  - Fowler-Nordheim
+  - tunnelling
+references:
+  - type: article
+    authors:
+      - family-names: Kyritsakis
+        given-names: A.
+      - family-names: Djurabekova
+        given-names: F.
+    title: >-
+      A general computational method for electron emission and thermal effects
+      in field emitting nanotips
+    journal: Computational Materials Science
+    volume: 128
+    start: 15
+    end: 21
+    year: 2017
+    doi: 10.1016/j.commatsci.2016.11.010
+  - type: article
+    authors:
+      - family-names: Barranco Cárceles
+        given-names: Salvador
+      - family-names: Zadin
+        given-names: Veronika
+      - family-names: Mavalankar
+        given-names: Aquila
+      - family-names: Underwood
+        given-names: Ian
+      - family-names: Kyritsakis
+        given-names: Andreas
+    title: Theory and computation of thermal-field emission from semiconductors
+    journal: Journal of Applied Physics
+    volume: 138
+    year: 2025
+    doi: 10.1063/5.0284808
+  - type: conference-paper
+    authors:
+      - family-names: Barranco Cárceles
+        given-names: Salvador
+      - family-names: Kyritsakis
+        given-names: Andreas
+      - family-names: Ayari
+        given-names: Anthony
+    title: A General Numerical Method for Electron Emission
+    collection-title: 2026 39th International Vacuum Nanoelectronics Conference (IVNC)
+    start: 1
+    end: 2
+    year: 2026
+    doi: 10.1109/IVNC69421.2026.11660987

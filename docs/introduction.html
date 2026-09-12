@@ -144,15 +144,109 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Architectural Overview: the assembly diagram */
+        .flow {
+            margin: 1.25rem 0 1.5rem 0;
+        }
+
+        .flow-parts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .flow-down {
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .flow-box {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            background: var(--background);
+            font-size: 0.85rem;
+            line-height: 1.35;
+        }
+
+        .flow-box strong {
+            display: block;
+            color: var(--secondary);
+        }
+
+        .flow-box code {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        .flow-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .flow-emitter {
+            border-color: var(--primary);
+            background: #eff6ff;
+            flex: 1 1 0;
+        }
+
+        .flow-outputs {
+            flex: 1.3 1 0;
+        }
+
+        .tab-content ul {
+            margin: 0 0 1rem 1.25rem;
+        }
+
+        .tab-content li {
+            margin-bottom: 0.4rem;
+        }
+
+        .tab-content code, .card p code {
+            font-family: Consolas, "SF Mono", Menlo, monospace;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0 0.25rem;
+            font-size: 0.85em;
+        }
+
+        .note {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* How to cite: long DOIs in a narrow column */
+        .cite, .cite-list {
+            font-size: 0.9rem;
+            overflow-wrap: anywhere;
+        }
+
+        .cite-list {
+            margin: 0 0 1rem 1.25rem;
+        }
+
+        .cite-list li {
+            margin-bottom: 0.5rem;
+        }
+
         /* Interactive Tabs for Architectural Overview */
         .tabs {
             display: flex;
+            flex-wrap: wrap;
             border-bottom: 2px solid var(--border);
             margin-bottom: 1rem;
         }
 
         .tab-btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.1rem;
             background: none;
             border: none;
             font-weight: 600;
@@ -240,7 +334,7 @@
                         <ul>
                             <li><strong>Analytical Speed, Numerical Power:</strong> Built with optimized vector algorithms that operate at a computational budget comparable to evaluation times of complex analytical expressions.</li>
                             <li><strong>Uncompromising Robustness:</strong> Bypasses typical truncation, high-field breakdown, and approximations errors native to analytic formulas.</li>
-                            <li><strong>Complete Boundary Freedom:</strong> Accepts any arbitrary potential barrier structure or density of states (DOS) without adjustments to the underlying engines.</li>
+                            <li><strong>Complete Boundary Freedom:</strong> Accepts any arbitrary potential barrier structure or density of states (DoS) without adjustments to the underlying engines.</li>
                             <li><strong>AI Boosted:</strong> Integrates a machine‑learning solver that delivers exceptional computational speed, ideal for applications where time is a critical resource.</li>
                         </ul>
                     </div>
@@ -248,30 +342,87 @@
 
                 <section class="card">
                     <h2>Architectural Overview</h2>
-                    <p>The code is engineered using a modular, decoupled Object-Oriented design pattern. Click on the components below to explore their interactions:</p>
-                    
+                    <p>An emitter is assembled from four interchangeable components, one module each. The emitter combines them into every physical result, so a different barrier or a different solver can be swapped in without touching the other three. The one-line functions (<code>getelec.current_density</code>, <code>getelec.nottingham_heat</code>, …) and this application assemble sensible defaults for you.</p>
+
+                    <div class="flow">
+                        <div class="flow-parts">
+                            <div class="flow-box"><strong>Potential barrier</strong><code>potential_barrier</code><br>V(x): work function, field, tip shape</div>
+                            <div class="flow-box"><strong>Band structure</strong><code>band_structure</code><br>which energies are integrated</div>
+                            <div class="flow-box"><strong>Electron supply</strong><code>electron_supply</code><br>occupancy: E<sub>F</sub>, temperature</div>
+                            <div class="flow-box"><strong>Transmission solver</strong><code>transmission_solver</code><br>D(E), the tunnelling probability</div>
+                        </div>
+                        <div class="flow-arrow flow-down">&darr;</div>
+                        <div class="flow-row">
+                            <div class="flow-box flow-emitter"><strong>Emitter</strong><code>electron_emitter</code><br>metal or semiconductor</div>
+                            <div class="flow-arrow">&rarr;</div>
+                            <div class="flow-box flow-outputs"><strong>Results</strong>J, P<sub>N</sub>, TED, NED, D(E), N(E), &psi;(E,x)</div>
+                        </div>
+                    </div>
+
+                    <p>Click a component for what it does and which classes implement it:</p>
+
                     <div class="tabs">
-                        <button class="tab-btn active" onclick="switchTab(event, 'emitter')">Emitter Managers</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'barrier')">Potential Barriers</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'band')">Band Structures</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'supply')">Electron Supplies</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'solver')">Transmission Solvers</button>
+                        <button class="tab-btn active" onclick="switchTab(event, 'emitter')">Emitter</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'barrier')">Potential barrier</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'band')">Band structure</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'supply')">Electron supply</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'solver')">Transmission solver</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'app')">This application</button>
                     </div>
 
                     <div id="emitter" class="tab-content active">
-                        <p><strong>MetalEmitter &amp; SemiconductorEmitter:</strong> Orchestrate sub-module data pipelines. They implement the different mudules to create emitter object that provide numerical calculations of: Total Energy Distributions (TED), Normal Energy Distributions (NED), Current Density, and Nottingham Heat.</p>
+                        <p><strong>MetalEmitter</strong> and <strong>SemiconductorEmitter</strong> (<code>electron_emitter</code>) turn the four components into physical results: the current density J (A/cm²), the Nottingham heat P<sub>N</sub> (W/cm², negative when the emitter heats), the total and normal energy distributions TED and NED (A/(eV·cm²)), the transmission D(E) and supply N(E), and, with the full Noumerov solver, the wavefunction &psi;(E,x) and the probability current.</p>
+                        <ul>
+                            <li>The current density is the integral of the TED, and the NED integrates to the same value, so the current and the distributions cannot disagree.</li>
+                            <li>A semiconductor emitter treats the conduction and valence bands separately, each with its effective mass, and reports both. It also returns g(E), the transmission integrated over each energy's effective-mass window, which is where the masses act.</li>
+                            <li><code>update_params</code> sets a parameter on every component that holds it (the Fermi level lives on the barrier, the supply and, for a semiconductor, the band structure), and results are cached against every setting, so asking for the Nottingham heat after the current does not repeat the calculation.</li>
+                        </ul>
                     </div>
                     <div id="barrier" class="tab-content">
-                        <p><strong>SchottkyPotential &amp; CustomPotential:</strong> Set the potential boundaries. Implements the classical image-charge potential and allows for arbitrary profiles like the triangular or resonant barriers.</p>
+                        <p>The potential energy V(x) an electron meets outside the surface (<code>potential_barrier</code>).</p>
+                        <ul>
+                            <li><strong>SchottkyPotential</strong>: the planar image-charge (Schottky–Nordheim) barrier. The default.</li>
+                            <li><strong>SmallRadiiPotential</strong>: a sharp tip, with curvature corrections set by the tip radius and the field enhancement factor &gamma;. Valid for radii of 20–1000 nm.</li>
+                            <li><strong>TriangularPotential</strong>: no image charge, the barrier of Fowler and Nordheim; its transmission has an exact solution.</li>
+                            <li><strong>Customised</strong>: a potential of your own, as a function V(x) or a table, such as a self-consistent or DFT surface potential or a field solver's output. With a metal emitter its Fermi level, work function, field and temperature follow the emitter's, so sweeps move it too.</li>
+                        </ul>
+                        <p>Every barrier, <code>Customised</code> included, goes to the same solvers, emitters and distributions unchanged. The Noumerov solvers integrate the potential itself; the WKB and Airy solutions assume the Schottky–Nordheim and triangular shapes.</p>
                     </div>
                     <div id="band" class="tab-content">
-                        <p><strong>Metal &amp; SmartMetal &amp; Semiconductor:</strong> Establishes the band structure of the emitter. Sets the characteristics energies that defines a solid and implements smart algorithms to automatically reduce the computational time without compromising the solutions.</p>
+                        <p>Which energies the emission is integrated over (<code>band_structure</code>). The integrand spans many orders of magnitude, so choosing the grid well matters as much as solving each energy well.</p>
+                        <ul>
+                            <li><strong>SmartMetal</strong>: the default. Picks its limits from the field, work function and temperature, holding the current density and Nottingham heat within 1% wherever the current reaches 10⁻¹² A/cm².</li>
+                            <li><strong>Metal</strong> and <strong>CustomMetal</strong>: limits, or a grid, of your own.</li>
+                            <li><strong>DensityOfStatesMetal</strong>: a tabulated density of states, from a DFT calculation for instance, which weights the emission at each energy relative to a free electron gas.</li>
+                            <li><strong>Semiconductor</strong>, <strong>SmartSemiconductor</strong> and <strong>CustomSemiconductor</strong>: separate conduction and valence band grids, with the band gap, the valence band edge and the two effective masses.</li>
+                        </ul>
                     </div>
                     <div id="supply" class="tab-content">
-                        <p><strong>Fermi Dirac &amp; LogFermiDirac:</strong> Manage localized carrier distributions. Implements stable mathematical forms over extreme domains (including absolute zero thresholds T=0 K) and integrates dynamic, external Density of States (DOS) vectors.</p>
+                        <p>How the electrons arriving at the surface are distributed in energy, set by the Fermi level and the temperature (<code>electron_supply</code>).</p>
+                        <ul>
+                            <li><strong>LogFermiDirac</strong> (the default) and <strong>FermiDirac</strong>.</li>
+                            <li>Both give the Fermi–Dirac occupancy f(E), which builds the total energy distribution, and the supply l(E) = k<sub>B</sub>T ln(1 + e<sup>&minus;(E&minus;E<sub>F</sub>)/k<sub>B</sub>T</sup>), which builds the normal one.</li>
+                            <li>Evaluated in forms that stay exact across the whole energy range and down to T = 0 K.</li>
+                        </ul>
                     </div>
                     <div id="solver" class="tab-content">
-                        <p><strong>Noumerov &amp; MachineLearning:</strong> Efficiently solves the 1D-TISE. Takes arbitrary potentials and bands and automatically applies highly efficient methods to calculate the tranmission coeffcieent.</p>
+                        <p>The transmission probability D(E): the expensive part, and the one that sets the accuracy (<code>transmission_solver</code>, <code>transmission_solutions</code>).</p>
+                        <ul>
+                            <li><strong>Noumerov</strong>: the default. Solves the one-dimensional Schrödinger equation through the barrier with Noumerov's method, and keeps the wavefunction for when it is the answer.</li>
+                            <li><strong>NoumerovFast</strong>: the same integration keeping only what the transmission needs. Its <code>fast=True</code> preset is for sweeps and fitting.</li>
+                            <li><strong>NoumerovReference</strong>: the same integration written out plainly, one energy at a time, to check the others (<code>reference=True</code>).</li>
+                            <li><strong>NeuralSolver</strong>: trained networks for the planar and sharp-tip barriers (<code>method="ml"</code>). Outside a network's trained range it hands over to the exact solver. <code>getelec.training</code> trains one for another barrier.</li>
+                            <li>Closed forms, for comparison: <strong>WKB</strong>, the semiclassical result for the Schottky–Nordheim barrier (<code>method="wkb"</code>), and <strong>AiryTriangular</strong>, the exact solution for the triangular barrier (<code>method="airy"</code>).</li>
+                        </ul>
+                    </div>
+                    <div id="app" class="tab-content">
+                        <p>This interface is a thin layer over the package: the window (<code>gui.py</code>) moves numbers between the boxes and the plots, and every calculation and fit lives in <code>gui_backend.py</code>, which contains no interface code, so it is tested with the package and can be called from a script.</p>
+                        <ul>
+                            <li><strong>Calculate</strong>: current against field or temperature, Nottingham heat, TED, NED, D(E), N(E), and g(E) for semiconductors, with a choice of solver. Calculations run in the background, so the window stays responsive.</li>
+                            <li><strong>Fit</strong>: I-V, I-T and TED data from <code>.txt</code>, <code>.csv</code> or Excel files, choosing which parameters are free, with standard errors and the correlations that limit what the data can determine. Metals only.</li>
+                            <li><strong>Documentation</strong>: opens these pages, the usage guide and the API reference in your web browser. They are generated from the same sources as the documentation of the package.</li>
+                        </ul>
+                        <p class="note">Units throughout: energies in eV, distances in nm, fields in V/nm, temperatures in K, current densities in A/cm², Nottingham heat in W/cm².</p>
                     </div>
                 </section>
             </div>
@@ -288,25 +439,33 @@
                         <span class="badge">Semiconductors Emission</span>
                         <span class="badge">Nottingham Heat</span>
                         <span class="badge">Nano-Tips</span>
-                        <span class="badge">Arbitrary DOS</span>
+                        <span class="badge">Arbitrary DoS</span>
                         <span class="badge">Arbitrary Potential</span>
 
                     </div>
                 </section>
 
                 <section class="card">
-                    <h2>Performance Paradigm</h2>
+                    
+            <h2>Performance Paradigm</h2>
                     <p>GETELEC eliminates the computational overhead typically associated with raw numerical integrations by implementing a highly optimised version of the Noumerov method to solve the 1D-TISE.</p>
                     <div class="metric-container">
                         <div class="metric">
-                            <div class="metric-value">~0.75%</div>
+                            <div class="metric-value">&lt;1.00%</div>
                             <div class="metric-label">Solution Uncertainty</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-value">&lt;0.05</div>
-                            <div class="metric-label">Running Time (ms)</div>
+                            <div class="metric-value">&lt;0.4 ms</div>
+                            <div class="metric-label">Per current density</div>
                         </div>
                     </div>
+                </section>
+
+                <section class="card">
+                    <h2>How to Cite</h2>
+                    <p>If you use GETELEC, please cite the software,</p>
+                    <p class="cite">S. Barranco Cárceles, A. Kyritsakis and A. Ayari, <em>GETELEC: General Tool for Electron Emission Calculations</em>, Zenodo, <a href="https://doi.org/10.5281/zenodo.23093209">doi:10.5281/zenodo.23093209</a>,</p>
+                    <p class="note">The software DOI covers every version and resolves to the latest one.</p>
                 </section>
             </div>
         </div>

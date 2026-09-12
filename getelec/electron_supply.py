@@ -1,12 +1,11 @@
 """
-Docstring for getelec.gt3.electron_supply
+Electron supply functions.
 
-This module defines the electron supply functions used in the GT3 model for electron emission.
-
-It provides abstract and concrete classes to model the available carrier counts and energy 
-distributions of electrons incident upon a barrier surface using various foundational statistical 
-frameworks (e.g., standard Fermi-Dirac distribution, and log-formulated variants tracking 
-integrated supply capabilities).
+This module defines how the electrons arriving at the barrier are distributed
+in energy, set by the Fermi level and the temperature: the Fermi-Dirac
+occupancy ``f(E)``, which builds the total energy distribution, and the supply
+``l(E) = k_B T ln(1 + exp(-(E - E_F)/k_B T))``, the occupancy integrated over
+transverse momentum, which builds the normal energy distribution.
 
 Dependencies
 ------------
@@ -17,6 +16,7 @@ typing : Type annotation management tools.
 """
 
 import numpy as np
+from scipy.special import expit
 from abc import ABC, abstractmethod
 from getelec import constants as const
 from typing import Optional, Tuple
@@ -29,6 +29,64 @@ class Supply(ABC):
     intensity or probability distribution arriving at an emission boundary as a 
     function of energy.
     """
+
+    def get_occupancy(self, energy_array: np.ndarray) -> np.ndarray:
+        """
+        Fermi-Dirac occupancy f(E), dimensionless and in [0, 1].
+
+        Distinct from :meth:`get_supply`, and the distinction matters. The
+        supply function is the log term
+
+            l(E) = k_B T ln(1 + exp(-(E - E_F) / k_B T)) ,
+
+        which is the occupancy already integrated over transverse momentum. It
+        is what multiplies D(E) in the current integral, and therefore what the
+        **normal** energy distribution is built from. The **total** energy
+        distribution instead pairs the bare occupancy with the transmission
+        integrated over normal energy,
+
+            NED(E) = l(E) D(E) ,      TED(E) = f(E) * integral of D dE_z .
+
+        The two are related by ``dl/dE = -f``, which is exactly why both
+        integrate to the same current density -- integrating one by parts gives
+        the other. Using the wrong one gives a curve that looks plausible,
+        peaks in nearly the right place, and integrates to the wrong number.
+
+        Returns
+        -------
+        np.ndarray
+        """
+        energy_array = np.asarray(energy_array, dtype=float)
+        if self.temperature < 1e-6:
+            return np.where(energy_array < self.fermi_level, 1.0, 0.0)
+        return expit(-(energy_array - self.fermi_level)
+                     / (const.KB * self.temperature))
+
+
+    def get_log_supply(self, energy_array: np.ndarray) -> np.ndarray:
+        """
+        Supply function l(E) = k_B T ln(1 + exp(-(E - E_F) / k_B T)), in eV.
+
+        The occupancy already integrated over transverse momentum. This is what
+        multiplies the transmission in the current integral and in the normal
+        energy distribution, while :meth:`get_occupancy` gives ``f(E)`` for the
+        total energy distribution. They satisfy ``dl/dE = -f``.
+
+        Provided on the base class so that neither distribution depends on which
+        supply object happens to be attached to the emitter: a ``FermiDirac``
+        supply returns ``f`` from ``get_supply`` and a ``LogFermiDirac`` returns
+        ``l``, but both are determined by the Fermi level and the temperature,
+        so both are always available.
+
+        Returns
+        -------
+        np.ndarray
+        """
+        energy_array = np.asarray(energy_array, dtype=float)
+        if self.temperature < 1e-6:
+            return np.maximum(self.fermi_level - energy_array, 0.0)
+        thermal = const.KB * self.temperature
+        return thermal * np.logaddexp(0.0, -(energy_array - self.fermi_level) / thermal)
 
     @abstractmethod
     def get_supply(self, energy_array: np.ndarray) -> np.ndarray:
@@ -111,17 +169,12 @@ class FermiDirac(Supply):
             return np.where(energy_array <= self.fermi_level, 1.0, 0.0)
 
         x = (energy_array - self.fermi_level) / (const.KB * self.temperature)
-        
-        # Use different stable formulations for positive and negative x
-        # Note: We compute exp_neg_x because np.exp(-x) is always safe from overflow
-        # when x is positive.
-        exp_neg_x = np.exp(-x)
-        
-        distribution = np.where(
-            x > 0,
-            exp_neg_x / (exp_neg_x + 1),  # Stable form for x > 0
-            1 / (1 + np.exp(x))         # Stable form for x <= 0
-        )
+
+        # f(E) = 1 / (1 + exp(x)) is exactly the logistic function of -x.
+        # scipy's expit is stable over the whole real line, so no branching and
+        # no overflow -- the previous np.where evaluated both branches and
+        # produced inf/inf warnings for large |x| before discarding one of them.
+        distribution = expit(-x)
 
         if states_density is None:
             return distribution
@@ -165,11 +218,12 @@ class LogFermiDirac(Supply):
         self.temperature = temperature
         
     def get_supply(self, energy_array: np.ndarray, states_density: Optional[Tuple[np.ndarray, np.ndarray]] = None) -> np.ndarray:
-        """
+        r"""
         Calculate the log-form integrated electronic supply spectrum or its density-weighted equivalent.
 
-        Applies threshold switching over large arguments ($\|x\| > 35$) inside an isolated 
-        floating-point error state context window to bypass standard evaluation hardware warnings.
+        ``k_B T ln(1 + exp(-(E - E_F)/k_B T))``, in eV, evaluated with
+        ``numpy.logaddexp``, which is exact in both tails; at T = 0 it is
+        ``max(E_F - E, 0)``.
 
         Parameters
         ----------
@@ -192,21 +246,24 @@ class LogFermiDirac(Supply):
         >>> distribution.get_supply(energies)
         """
         if self.temperature < 1e-6:
-            # ... (T=0 case remains the same)
-            constant_at_T0 = 4 * np.pi * const.M_E / (const.H**3 * const.C)
-            supply = np.where(energy_array < self.fermi_level, 
-                            constant_at_T0 * (self.fermi_level - energy_array), 
-                            0.0)
-
-            return supply
+            # T -> 0 limit of k_B T ln(1 + exp(-(E - E_F)/k_B T)), which is
+            # (E_F - E) below the Fermi level and zero above it. No k_B T
+            # survives, which is exactly why the caller must not multiply this
+            # by the temperature -- see the note in get_supply's docstring.
+            return np.where(energy_array < self.fermi_level,
+                            self.fermi_level - energy_array, 0.0)
         else:
 
             x = -(energy_array - self.fermi_level) / (const.KB * self.temperature)
-            
-            # Use a context manager to suppress the expected overflow warning
-            with np.errstate(over='ignore'):
-                log_term = np.where(x > 35, x, 
-                                    np.where(x < -36, np.exp(x), np.log(1 + np.exp(x))))
+
+            # log(1 + exp(x)) evaluated stably. np.logaddexp(0, x) is exact in
+            # both tails, so the hand-tuned x > 35 / x < -36 cutoffs and the
+            # suppressed overflow warning are no longer needed.
+            # k_B T ln(1 + exp(-(E - E_F)/k_B T)). The k_B T is included here
+            # rather than left to the caller so that this function returns the
+            # same physical quantity at every temperature, including zero --
+            # where the factor vanishes and no rescaling by T could recover it.
+            log_term = const.KB * self.temperature * np.logaddexp(0.0, x)
 
         if states_density is None:
             return log_term

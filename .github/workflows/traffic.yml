@@ -1,0 +1,44 @@
+name: Save repository traffic
+
+# GitHub keeps a repository's traffic (views and clones) for 14 days only.
+# Once a day this fetches it, merges it into traffic/*.csv and commits that to
+# the separate branch `traffic`, so main and the release history stay as they
+# are. Actions are pinned to commits, since one of them receives a token.
+
+on:
+  schedule:
+    - cron: '0 0 * * *'       # daily, 00:00 UTC
+  workflow_dispatch:           # run by hand from the Actions tab
+
+permissions:
+  contents: write              # to push the traffic branch
+
+jobs:
+  save-traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+
+      - name: Switch to the traffic branch (created on the first run)
+        run: |
+          if git ls-remote --exit-code --heads origin traffic > /dev/null; then
+            git fetch --depth=1 origin traffic
+            git switch --create traffic FETCH_HEAD
+          else
+            git switch --orphan traffic
+          fi
+
+      - name: Fetch the traffic numbers and merge them into traffic/
+        uses: sangonzal/repository-traffic-action@404df77a0bfb110f8977fe14ddba62451ec868b7  # v.0.1.6
+        env:
+          TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
+
+      - name: Commit and push to the traffic branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add traffic
+          if git diff --cached --quiet; then echo "No new numbers."; exit 0; fi
+          git commit --quiet --message "Update repository traffic stats"
+          git push origin traffic

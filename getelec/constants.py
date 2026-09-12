@@ -1,5 +1,5 @@
-"""
-Docstring for getelec.constants
+r"""
+Physical constants.
 
 This module defines physical constants and derived constants used in the GETELEC model for electron emission. 
 It includes fundamental constants such as the electron mass, Planck's constant, and the elementary charge, as well as derived constants relevant to the calculations of tunneling probabilities and image potentials.
@@ -39,8 +39,8 @@ Inputs
 
 Outputs
     Current density in A/cm2
-    Nottingham heat in W/cm2
-    TED & NED in A/eV*cm2
+    Nottingham heat P_N in W/cm2
+    TED & NED in A/(eV cm2)
 
 Examples
 --------

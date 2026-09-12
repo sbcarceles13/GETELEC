@@ -3,11 +3,12 @@ venv/
 .venv/
 __pycache__/
 examples/test.ipynb
-machine_memory/ef_7.5.joblib
-machine_memory/ef_7.5.parquet
 build/
 dist/
+app/
 compiler.py
-gui.spec
+*.spec
 getelec/solutions.py
 git_commands.txt
+*.egg-info/
+.pytest_cache/
