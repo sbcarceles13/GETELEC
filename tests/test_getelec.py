@@ -1886,9 +1886,9 @@ def test_citation_is_the_same_everywhere():
 
     The software DOI is what a paper cites, and the same text is given in each
     place a reader may look: README (also the PyPI page), GUIDE, the notebook,
-    the GUI's documentation tab and introduction page, and the package
-    docstring. Zenodo and GitHub read CITATION.cff, so its version, licence and
-    authors have to be the package's.
+    the GUI's documentation tab and introduction page, the front page of the
+    website, and the package docstring. Zenodo and GitHub read CITATION.cff, so
+    its version, licence and authors have to be the package's.
     """
     import re
 
@@ -1903,10 +1903,12 @@ def test_citation_is_the_same_everywhere():
 
     doi = citation["doi"]
     for path in ("README.md", "GUIDE.md", "gui.py", "docs/introduction.html",
-                 "docs/build_intro_notebook.py", "getelec/__init__.py"):
+                 "docs/index.html", "docs/build_intro_notebook.py", "getelec/__init__.py"):
         assert doi in (ROOT / path).read_text(encoding="utf-8"), f"{path} lacks {doi}"
     for reference in citation["references"]:
-        assert reference["doi"] in (ROOT / "README.md").read_text(encoding="utf-8")
+        for path in ("README.md", "docs/index.html"):
+            assert reference["doi"] in (ROOT / path).read_text(encoding="utf-8"), \
+                f"{path} lacks {reference['doi']}"
 
 
 def test_readme_links_work_on_pypi():
@@ -1974,6 +1976,31 @@ def test_documentation_files_are_present():
     assert docs.is_dir(), "docs/ is missing; the GUI documentation tab needs it"
     for page in ("introduction.html", "usage.html", "getelec.html"):
         assert (docs / page).is_file(), f"docs/{page} is missing"
+
+
+def test_documentation_is_ready_to_serve_as_a_website():
+    """
+    docs/ is published as it is, so what a search engine needs is kept here.
+
+    Every page has a title and a description, which is what a search result
+    shows, and sitemap.xml lists every page by its address. The API pages are
+    overwritten by pdoc, which writes no description: docs/regenerate.py puts
+    it back, and this fails if they were regenerated some other way.
+    """
+    import re
+
+    docs = ROOT / "docs"
+    site = "https://sbcarceles13.github.io/GETELEC/"
+    assert (docs / ".nojekyll").is_file(), "without it GitHub Pages runs Jekyll over docs/"
+    listed = re.findall(r"<loc>([^<]+)</loc>", (docs / "sitemap.xml").read_text(encoding="utf-8"))
+    pages = sorted(path.relative_to(docs).as_posix() for path in docs.rglob("*.html"))
+    assert sorted(listed) == sorted(site + page.replace("index.html", "") for page in pages)
+    for page in pages:
+        text = (docs / page).read_text(encoding="utf-8")
+        head = text[:text.index("</head>")]
+        assert re.search(r"<title>[^<]+</title>", head), f"docs/{page} has no title"
+        assert head.count('<meta name="description" content="') == 1, \
+            f"docs/{page} needs one description"
 
 
 def test_dev_extra_installs_a_runnable_gui():

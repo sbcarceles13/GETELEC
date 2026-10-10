@@ -392,9 +392,8 @@ DOCUMENTATION_HTML = """
         <li>S. Barranco Cárceles, V. Zadin, A. Mavalankar, I. Underwood and
             A. Kyritsakis, J. Appl. Phys. <b>138</b>, 155705 (2025),
             <a href='https://doi.org/10.1063/5.0284808'>doi:10.1063/5.0284808</a></li>
-        <li>S. Barranco Cárceles, A. Kyritsakis and A. Ayari, 39th International
-            Vacuum Nanoelectronics Conference (IVNC 2026),
-            <a href='https://doi.org/10.1109/IVNC69421.2026.11660987'>doi:10.1109/IVNC69421.2026.11660987</a></li>
+        <li>S. Barranco Cárceles, A. Kyritsakis and A. Ayari, arXiv:2610.07013 (2026),
+            <a href='https://doi.org/10.48550/arXiv.2610.07013'>doi:10.48550/arXiv.2610.07013</a></li>
     </ul>
     <hr>
     <p><b>Documentation</b>, opened in your web browser:</p>

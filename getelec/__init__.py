@@ -71,7 +71,7 @@ from getelec import electron_emitter
 from getelec.electron_emitter import (MetalEmitter, SemiconductorEmitter,
                                       get_energy_integral)
 
-__version__ = "3.1.0"
+__version__ = "3.1.1"
 
 __all__ = [
     "metal_emitter", "semiconductor_emitter",

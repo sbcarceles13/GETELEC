@@ -19,7 +19,7 @@ authors:
   - family-names: Ayari
     given-names: Anthony
     orcid: "https://orcid.org/0000-0003-1654-5470"
-version: 3.1.0
+version: 3.1.1
 doi: 10.5281/zenodo.23093209
 license: MIT
 repository-code: "https://github.com/sbcarceles13/GETELEC"
@@ -63,7 +63,7 @@ references:
     volume: 138
     year: 2025
     doi: 10.1063/5.0284808
-  - type: conference-paper
+  - type: article
     authors:
       - family-names: Barranco Cárceles
         given-names: Salvador
@@ -71,9 +71,8 @@ references:
         given-names: Andreas
       - family-names: Ayari
         given-names: Anthony
-    title: A General Numerical Method for Electron Emission
-    collection-title: 2026 39th International Vacuum Nanoelectronics Conference (IVNC)
-    start: 1
-    end: 2
+    title: "A numerical and efficient model for thermo-field electron emission calculations"
+    journal: arXiv
     year: 2026
-    doi: 10.1109/IVNC69421.2026.11660987
+    doi: 10.48550/arXiv.2610.07013
+    url: "https://arxiv.org/abs/2610.07013"

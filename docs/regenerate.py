@@ -3,11 +3,15 @@ Regenerate the bundled documentation.
 
 Three kinds of page live in ``docs/``:
 
-- ``introduction.html`` is written by hand, and is not touched here.
+- ``index.html`` and ``introduction.html`` are written by hand, and are not
+  touched here.
 - ``usage.html`` is rendered from ``GUIDE.md`` at the top of the repository, so
   the guide the GUI shows and the guide on GitHub cannot drift apart.
 - ``getelec.html``, ``search.js`` and ``getelec/`` are generated from the
   docstrings by pdoc, and are overwritten wholesale.
+
+``docs/`` is also the website, published by GitHub Pages at ``SITE``:
+``sitemap.xml`` lists every page for search engines and is rewritten here.
 
 Run from the repository root::
 
@@ -35,6 +39,9 @@ DOCS = ROOT / "docs"
 #: for anything that is not one of these pages -- the notebook, INSTALL.md --
 #: since the application ships only docs/ and a relative link would be dead.
 REPOSITORY = "https://github.com/sbcarceles13/GETELEC/blob/main/"
+
+#: Where GitHub Pages serves docs/.
+SITE = "https://sbcarceles13.github.io/GETELEC/"
 
 
 def render_markdown(text: str) -> str:
@@ -208,7 +215,39 @@ def regenerate_api_docs():
         shutil.copytree(Path(tmp) / "getelec", DOCS / "getelec")
         for name in ("getelec.html", "search.js"):
             shutil.copy(Path(tmp) / name, DOCS / name)
+    for page in [DOCS / "getelec.html", *sorted((DOCS / "getelec").glob("*.html"))]:
+        describe_api_page(page)
     print("  regenerated API reference from docstrings")
+
+
+def describe_api_page(page: Path):
+    """
+    Give a pdoc page the description a search engine shows under its title.
+
+    pdoc writes none, and a result without one is shown with whatever text the
+    page happens to start with.
+    """
+    module = "getelec" if page.parent == DOCS else f"getelec.{page.stem}"
+    text = page.read_text(encoding="utf-8")
+    title = f"<title>{module} API documentation</title>"
+    if text.count(title) != 1:
+        raise SystemExit(f"{page.name}: pdoc's title line was not found once.")
+    description = (f"API reference of {module}, from GETELEC, the Python package for "
+                   "thermal-field electron emission calculations.")
+    text = text.replace(title, f'{title}\n    <meta name="description" content="{description}">')
+    page.write_text(text, encoding="utf-8", newline="\n")
+
+
+def write_sitemap():
+    """List every page of docs/ in sitemap.xml, by its address on the website."""
+    pages = sorted(path.relative_to(DOCS).as_posix() for path in DOCS.rglob("*.html"))
+    pages.remove("index.html")
+    urls = [SITE] + [SITE + page for page in pages]
+    lines = (['<?xml version="1.0" encoding="UTF-8"?>',
+              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+             + [f"  <url><loc>{url}</loc></url>" for url in urls] + ["</urlset>", ""])
+    (DOCS / "sitemap.xml").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    print(f"  listed {len(urls)} pages in sitemap.xml")
 
 
 SIDEBAR_SECTIONS = [
@@ -254,6 +293,7 @@ def regenerate_usage_page():
         f"            </ul>\n" for name, items in SIDEBAR_SECTIONS)
     sidebar = ("        <aside>\n            <h1>GETELEC Guide</h1>\n" + sections +
                '            <h2>Pages</h2>\n            <ul>\n'
+               '                <li><a href="index.html">Overview</a></li>\n'
                '                <li><a href="introduction.html">Introduction</a></li>\n'
                '                <li><a href="getelec.html">API reference</a></li>\n'
                "            </ul>\n        </aside>\n")
@@ -278,6 +318,7 @@ def regenerate_usage_page():
 def main():
     regenerate_api_docs()
     regenerate_usage_page()
+    write_sitemap()
     print("\nDone. The GUI reads these files directly, so no further step is needed.")
     print("Edit GUIDE.md rather than usage.html: the HTML is overwritten here.")
 

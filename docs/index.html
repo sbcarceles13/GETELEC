@@ -1,7 +1,308 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url=./getelec.html"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GETELEC: thermal-field electron emission calculations in Python</title>
+    <meta name="description" content="GETELEC is an open-source Python package and Windows application for field, thermal-field and thermionic electron emission from metals and semiconductors.">
+    <link rel="canonical" href="https://sbcarceles13.github.io/GETELEC/">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "GETELEC",
+        "alternateName": "General Tool for Electron Emission Calculations",
+        "description": "Thermal-field electron emission current density, energy distributions and Nottingham heat for metallic and semiconducting emitters, with a graphical interface for calculations and fitting.",
+        "url": "https://sbcarceles13.github.io/GETELEC/",
+        "codeRepository": "https://github.com/sbcarceles13/GETELEC",
+        "programmingLanguage": "Python",
+        "license": "https://spdx.org/licenses/MIT",
+        "identifier": "https://doi.org/10.5281/zenodo.23093209",
+        "keywords": "field emission, thermionic emission, electron emission, Nottingham effect, Fowler-Nordheim, tunnelling",
+        "author": [
+            {"@type": "Person", "name": "Salvador Barranco Cárceles", "@id": "https://orcid.org/0000-0001-8154-0866"},
+            {"@type": "Person", "name": "Andreas Kyritsakis", "@id": "https://orcid.org/0000-0002-4334-5450"},
+            {"@type": "Person", "name": "Anthony Ayari", "@id": "https://orcid.org/0000-0003-1654-5470"}
+        ]
+    }
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --accent: #0ea5e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1e293b 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(to right, #38bdf8, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+
+        .buttons {
+            margin-top: 1.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .button.main {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2.25rem;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            min-width: 0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--background);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary);
+        }
+
+        ul {
+            margin: 0 0 1rem 1.25rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code, pre {
+            font-family: Consolas, "SF Mono", Menlo, monospace;
+            font-size: 0.875rem;
+        }
+
+        code {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0 0.25rem;
+        }
+
+        pre {
+            background: var(--secondary);
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .pages {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .pages li {
+            margin-bottom: 0.9rem;
+        }
+
+        .pages a {
+            font-weight: 600;
+        }
+
+        .note, .cite-list {
+            font-size: 0.9rem;
+        }
+
+        .note {
+            color: var(--text-light);
+        }
+
+        .cite-list {
+            overflow-wrap: anywhere;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>GETELEC</h1>
+            <p>General Tool for Electron Emission Calculations</p>
+            <div class="buttons">
+                <a class="button main" href="usage.html">Usage guide</a>
+                <a class="button" href="https://github.com/sbcarceles13/GETELEC">Source on GitHub</a>
+                <a class="button" href="https://github.com/sbcarceles13/GETELEC/releases/latest/download/GETELEC-windows.zip">Application for Windows</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>What GETELEC does</h2>
+            <p>
+                GETELEC calculates electron emission from metallic and semiconducting emitters: the current density, the Nottingham heat and the total and normal energy distributions. It covers field emission, thermionic emission and the thermal-field regime between them, where neither limiting formula works.
+            </p>
+            <p>
+                The transmission through the surface barrier is obtained by solving the one-dimensional Schrödinger equation with Noumerov's method, for a planar barrier, a sharp tip, a triangular barrier or a potential of your own. GETELEC is a Python package, <code>getelec</code>, and an application for Windows that needs no Python, which also fits measured I-V, I-T and energy-distribution data.
+            </p>
+        </section>
+
+        <div class="grid">
+            <section class="card">
+                <h2>Install and run</h2>
+                <pre><code>pip install getelec</code></pre>
+                <pre><code>import getelec
+
+getelec.current_density(field=5.0)   # A/cm^2
+getelec.nottingham_heat(field=5.0)   # W/cm^2</code></pre>
+                <p class="note">Fields in V/nm, energies in eV, temperatures in K.</p>
+                <p>
+                    Without Python: <a href="https://github.com/sbcarceles13/GETELEC/releases/latest/download/GETELEC-windows.zip">download GETELEC-windows.zip</a>, extract it and double-click <code>GETELEC.exe</code>. Step-by-step instructions for both are in <a href="https://github.com/sbcarceles13/GETELEC/blob/main/INSTALL.md">INSTALL.md</a>.
+                </p>
+            </section>
+
+            <section class="card">
+                <h2>Documentation</h2>
+                <ul class="pages">
+                    <li><a href="introduction.html">Introduction</a><br>What GETELEC is and how an emitter is assembled from its four components.</li>
+                    <li><a href="usage.html">Usage guide</a><br>The physics, each module, choosing a solver, checking the accuracy, units.</li>
+                    <li><a href="getelec.html">API reference</a><br>Every class and function, from the docstrings.</li>
+                    <li><a href="https://github.com/sbcarceles13/GETELEC/blob/main/examples/intro_to_getelec.ipynb">Introduction notebook</a><br>Worked examples, from a one-line current density to fitting measured data.</li>
+                </ul>
+            </section>
+        </div>
+
+        <section class="card">
+            <h2>How to cite</h2>
+            <p>If you use GETELEC, please cite the software,</p>
+            <ul class="cite-list">
+                <li>S. Barranco Cárceles, A. Kyritsakis and A. Ayari, <em>GETELEC: General Tool for Electron Emission Calculations</em>, Zenodo, <a href="https://doi.org/10.5281/zenodo.23093209">doi:10.5281/zenodo.23093209</a></li>
+            </ul>
+            <p>and the papers:</p>
+            <ul class="cite-list">
+                <li>A. Kyritsakis and F. Djurabekova, Comput. Mater. Sci. <strong>128</strong>, 15 (2017), <a href="https://doi.org/10.1016/j.commatsci.2016.11.010">doi:10.1016/j.commatsci.2016.11.010</a></li>
+                <li>S. Barranco Cárceles, V. Zadin, A. Mavalankar, I. Underwood and A. Kyritsakis, J. Appl. Phys. <strong>138</strong>, 155705 (2025), <a href="https://doi.org/10.1063/5.0284808">doi:10.1063/5.0284808</a></li>
+                <li>S. Barranco Cárceles, A. Kyritsakis and A. Ayari, arXiv:2610.07013 (2026), <a href="https://doi.org/10.48550/arXiv.2610.07013">doi:10.48550/arXiv.2610.07013</a></li>
+            </ul>
+            <p class="note">The software DOI covers every version and resolves to the latest one.</p>
+        </section>
+
+        <section class="card">
+            <h2>Get GETELEC</h2>
+            <ul>
+                <li>Source code, issues and releases: <a href="https://github.com/sbcarceles13/GETELEC">github.com/sbcarceles13/GETELEC</a></li>
+                <li>Python package: <a href="https://pypi.org/project/getelec/">pypi.org/project/getelec</a></li>
+                <li>What changed in each version: <a href="https://github.com/sbcarceles13/GETELEC/blob/main/CHANGES.md">CHANGES.md</a></li>
+                <li>Earlier versions, GETELEC 1.0 and 2.0: <a href="https://github.com/sbcarceles13/GETELEC_legacy">GETELEC_legacy</a></li>
+            </ul>
+            <p class="note">GETELEC is distributed under the MIT licence.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 GETELEC Project. Developed for robust electron emission simulations and data analysis.</p>
+    </footer>
+
+</body>
 </html>

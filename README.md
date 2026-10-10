@@ -19,6 +19,7 @@ import getelec
 getelec.current_density(field=5.0, work_function=4.5)     # A/cm^2
 ```
 
+- **[Documentation](https://sbcarceles13.github.io/GETELEC/)** — the overview, the usage guide and the API reference, online.
 - **[INSTALL.md](https://github.com/sbcarceles13/GETELEC/blob/main/INSTALL.md)** — installation from scratch: Python, VS Code, venv.
 - **[GUIDE.md](https://github.com/sbcarceles13/GETELEC/blob/main/GUIDE.md)** — the physics and how the code is organised.
 - **[CHANGES.md](https://github.com/sbcarceles13/GETELEC/blob/main/CHANGES.md)** — what changed in this release, and how to update existing code.
@@ -35,9 +36,8 @@ and the papers:
   <https://doi.org/10.1016/j.commatsci.2016.11.010>
 - S. Barranco Cárceles, V. Zadin, A. Mavalankar, I. Underwood and A. Kyritsakis,
   J. Appl. Phys. **138**, 155705 (2025), <https://doi.org/10.1063/5.0284808>
-- S. Barranco Cárceles, A. Kyritsakis and A. Ayari, 39th International Vacuum
-  Nanoelectronics Conference (IVNC 2026),
-  <https://doi.org/10.1109/IVNC69421.2026.11660987>
+- S. Barranco Cárceles, A. Kyritsakis and A. Ayari, arXiv:2610.07013 (2026),
+  <https://doi.org/10.48550/arXiv.2610.07013>
 
 The software DOI covers every version and resolves to the latest one.
 [CITATION.cff](https://github.com/sbcarceles13/GETELEC/blob/main/CITATION.cff)
@@ -266,6 +266,9 @@ semiconductor energy distributions built consistently from the emission
 integral, a trained neural solver shipped with the package, more comprehensive
 documentation. Code written for 3.0.0 may
 need updating; the list is in [CHANGES.md](https://github.com/sbcarceles13/GETELEC/blob/main/CHANGES.md).
+
+3.1.1 changes no calculation: it cites the arXiv preprint and puts the
+documentation [online](https://sbcarceles13.github.io/GETELEC/).
 
 ## Contributing
 

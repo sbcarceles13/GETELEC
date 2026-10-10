@@ -1162,9 +1162,8 @@ and the papers:
   https://doi.org/10.1016/j.commatsci.2016.11.010
 - S. Barranco Cárceles, V. Zadin, A. Mavalankar, I. Underwood and A. Kyritsakis,
   J. Appl. Phys. **138**, 155705 (2025), https://doi.org/10.1063/5.0284808
-- S. Barranco Cárceles, A. Kyritsakis and A. Ayari, 39th International Vacuum
-  Nanoelectronics Conference (IVNC 2026),
-  https://doi.org/10.1109/IVNC69421.2026.11660987
+- S. Barranco Cárceles, A. Kyritsakis and A. Ayari, arXiv:2610.07013 (2026),
+  https://doi.org/10.48550/arXiv.2610.07013
 
 The software DOI covers every version and resolves to the latest one.
 """)

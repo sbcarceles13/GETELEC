@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "getelec"
-version = "3.1.0"
+version = "3.1.1"
 description = "General Tool for Electron Emission Calculations: thermal-field emission current density and Nottingham heat for metals and semiconductors"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -58,6 +58,7 @@ dev = [
 
 [project.urls]
 Homepage = "https://github.com/sbcarceles13/GETELEC"
+Documentation = "https://sbcarceles13.github.io/GETELEC/"
 
 [tool.setuptools.packages.find]
 include = ["getelec*"]

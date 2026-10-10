@@ -1,5 +1,19 @@
 # Changes
 
+## 3.1.1
+
+No change to the calculations: every result is that of 3.1.0.
+
+- **Citation.** The citation lists give the arXiv preprint, S. Barranco
+  Cárceles, A. Kyritsakis and A. Ayari, arXiv:2610.07013 (2026),
+  <https://doi.org/10.48550/arXiv.2610.07013>, in place of the IVNC 2026
+  conference paper: README, GUIDE, the notebook, the application and
+  CITATION.cff.
+- **Documentation online.** The pages in `docs/` are published at
+  <https://sbcarceles13.github.io/GETELEC/>: an overview, the introduction, the
+  usage guide and the API reference. They are the same files the application
+  opens.
+
 ## 3.1.0
 
 Changes since 3.0.0, the version previously on the GitHub `main` branch.
